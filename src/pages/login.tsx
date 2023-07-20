@@ -1,7 +1,8 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CurrentUser } from "../domain/User";
+import { UserContext } from "../context/UserProvider";
 
 const defaultCurrentUser: CurrentUser = {
   email: "",
@@ -13,9 +14,12 @@ const LoginPage: NextPage = () => {
     useState<CurrentUser>(defaultCurrentUser);
   const router = useRouter();
 
+  const userContext = useContext(UserContext);
+
   const login = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    userContext;
     router.push(`/recipes`);
   };
 

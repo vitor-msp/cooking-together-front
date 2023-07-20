@@ -22,7 +22,7 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
       text: currentComment,
       createdAt: new Date().toISOString(),
       recipeId,
-      user: { id: userContext.user!.id, name: userContext.user!.name },
+      user: { id: userContext.user?.id, name: userContext.user?.name },
     };
     GetCommentsMock.add(newComment);
     setComments(() => [...GetCommentsMock.get()]);
@@ -44,7 +44,7 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
             <li key={id}>
               <span>{`${createdAt} - ${text}`}</span>
               <span>{`${user?.id} - ${user?.name}`}</span>
-              {user?.id === userContext.user!.id && (
+              {user?.id === userContext.user?.id && (
                 <button type="button" onClick={() => deleteComment(id!)}>
                   X
                 </button>
