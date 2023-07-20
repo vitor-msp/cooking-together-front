@@ -32,6 +32,21 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
     event.stopPropagation();
   };
 
+  const onChangeField = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | ChangeEventHandler<HTMLTextAreaElement>
+  ) => {
+    const newRecipe = Object.assign(
+      {},
+      {
+        ...currentRecipe,
+        [event.target.name]: event.target.value,
+      }
+    );
+    setCurrentRecipe(newRecipe);
+  };
+
   return (
     <div>
       <Link href={"/my-recipes"}>my recipes</Link>
@@ -40,9 +55,9 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <label htmlFor="">
           recipe id
           <input
+            onChange={onChangeField}
             type="text"
-            name=""
-            id=""
+            name="id"
             value={currentRecipe.id}
             disabled={!canEdit}
           />
@@ -51,9 +66,9 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <label htmlFor="">
           servings
           <input
+            onChange={onChangeField}
             type="number"
-            name=""
-            id=""
+            name="servings"
             value={currentRecipe.servings}
             disabled={!canEdit}
           />
@@ -62,9 +77,9 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <label htmlFor="">
           title
           <input
+            onChange={onChangeField}
             type="text"
-            name=""
-            id=""
+            name="title"
             value={currentRecipe.title}
             disabled={!canEdit}
           />
@@ -73,9 +88,9 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <label htmlFor="">
           totalTimeInMinutes
           <input
+            onChange={onChangeField}
             type="number"
-            name=""
-            id=""
+            name="totalTimeInMinutes"
             value={currentRecipe.totalTimeInMinutes}
             disabled={!canEdit}
           />
@@ -84,9 +99,9 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <label htmlFor="">
           updatedAt
           <input
+            onChange={onChangeField}
             type="text"
-            name=""
-            id=""
+            name="updatedAt"
             value={currentRecipe.updatedAt}
             disabled={!canEdit}
           />
@@ -95,24 +110,31 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <label htmlFor="">
           createdAt
           <input
+            onChange={onChangeField}
             type="text"
-            name=""
-            id=""
+            name="createdAt"
             value={currentRecipe.createdAt}
             disabled={!canEdit}
           />
         </label>
         <br />
-        <textarea name="" id="" cols={30} rows={10} disabled={!canEdit}>
+        <textarea
+          name="description"
+          id=""
+          cols={30}
+          rows={10}
+          disabled={!canEdit}
+          onChange={onChangeField}
+        >
           {currentRecipe.description}
         </textarea>
         <hr />
         <label htmlFor="">
           user id
           <input
+            onChange={onChangeField}
             type="text"
-            name=""
-            id=""
+            name="uderid"
             value={currentRecipe.user?.id}
             disabled={!canEdit}
           />
@@ -121,9 +143,9 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <label htmlFor="">
           user name
           <input
+            onChange={onChangeField}
             type="text"
-            name=""
-            id=""
+            name="udername"
             value={currentRecipe.user?.name}
             disabled={!canEdit}
           />
