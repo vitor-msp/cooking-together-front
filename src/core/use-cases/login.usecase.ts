@@ -9,7 +9,7 @@ export class LoginUsecase {
   ) {}
 
   async execute(user: CurrentUser): Promise<CurrentUser> {
-    const { token } = await this.userApi.postUser(user);
+    const { token } = await this.userApi.login(user);
     user.token = token;
     await this.userDataRepo.save(user);
     return user;

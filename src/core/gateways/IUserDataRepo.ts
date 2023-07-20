@@ -2,5 +2,5 @@ import { CurrentUser } from "../domain/User";
 
 export interface IUserDataRepo {
   save(user: CurrentUser): Promise<void>;
-  get(): Promise<CurrentUser>;
+  get(): Promise<CurrentUser | null>;
 }
