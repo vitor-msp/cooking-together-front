@@ -4,8 +4,8 @@ import { UserDataRepo } from "./infra/UserDataRepo";
 import { HttpGate } from "./infra/HttpGate";
 import { SignupUsecase } from "./core/use-cases/SignupUsecase";
 
-const apiUrl = process.env.API_URL;
-if (!apiUrl) alert("Error to connect to backend!");
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+if (!apiUrl) console.log("Error to connect to backend!");
 
 const httpGate = new HttpGate(axios.create({ baseURL: apiUrl }));
 

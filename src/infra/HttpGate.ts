@@ -7,12 +7,11 @@ export class HttpGate implements IHttpGate {
 
   async postUser(user: CurrentUser): Promise<void> {
     const res = await this.api
-      .post(`/user`, user)
+      .post(`/users`, user)
       .then((res) => res.data)
-      .catch(() => {
+      .catch((err) => {
         throw new Error("error to register");
       });
-    console.log(res);
   }
 
   async login(user: CurrentUser): Promise<{ token: string }> {

@@ -40,7 +40,7 @@ const LoginPage: NextPage = () => {
 
   return (
     <div>
-      <h1>register</h1>
+      <h1>login</h1>
       <form action="" onSubmit={login}>
         <label htmlFor="">
           email
