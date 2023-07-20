@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { CurrentUser } from "../core/domain/User";
+import { signupUsecase } from "../factory";
 
 const defaultCurrentUser: CurrentUser = {
   email: "",
@@ -14,10 +15,15 @@ const SignUpPage: NextPage = () => {
     useState<CurrentUser>(defaultCurrentUser);
   const router = useRouter();
 
-  const signUp = (event: React.FormEvent<HTMLFormElement>) => {
+  const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    router.push(`/login`);
+    const success = await signupUsecase.execute(currentUser);
+    if (success) {
+      router.push(`/login`);
+      return;
+    }
+    alert("Error to register!! Please, try again!");
   };
 
   const onChangeField = (event: any) => {

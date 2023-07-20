@@ -6,7 +6,13 @@ export class HttpGate implements IHttpGate {
   constructor(private readonly api: AxiosInstance) {}
 
   async postUser(user: CurrentUser): Promise<void> {
-    throw new Error("Method not implemented.");
+    const res = await this.api
+      .post(`/user`, user)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to register");
+      });
+    console.log(res);
   }
 
   async login(user: CurrentUser): Promise<{ token: string }> {
