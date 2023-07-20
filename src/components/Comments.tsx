@@ -37,6 +37,7 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
 
   return (
     <div>
+      <h4>Comments</h4>
       <ul>
         {comments?.map(({ id, createdAt, text, user }) => {
           return (
