@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { Recipe } from "@/src/domain/Recipe";
 import { getRecipeMock, getRecipesMock } from "@/src/mocks/recipes";
 import Link from "next/link";
+import Comments from "@/src/components/Comments";
 
 type RecipePageProps = {
   recipe: Recipe;
@@ -21,6 +22,7 @@ const RecipePage: NextPage<RecipePageProps> = ({ recipe }) => {
     ingredients,
     user,
   } = recipe;
+
   return (
     <div>
       <Link href={"/recipes"}>home</Link>
@@ -49,6 +51,8 @@ const RecipePage: NextPage<RecipePageProps> = ({ recipe }) => {
           );
         })}
       </ul>
+      <br />
+      <Comments recipeId={id ?? ""} />
     </div>
   );
 };
