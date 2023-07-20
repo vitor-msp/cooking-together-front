@@ -8,10 +8,14 @@ export class LoginUsecase {
     private readonly userDataRepo: IUserDataRepo
   ) {}
 
-  async execute(user: CurrentUser): Promise<CurrentUser> {
-    const { token } = await this.userApi.login(user);
-    user.token = token;
-    await this.userDataRepo.save(user);
-    return user;
+  async execute(user: CurrentUser): Promise<CurrentUser | null> {
+    try {
+      const { token } = await this.userApi.login(user);
+      user.token = token;
+      await this.userDataRepo.save(user);
+      return user;
+    } catch (error) {
+      return null;
+    }
   }
 }

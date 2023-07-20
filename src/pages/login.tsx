@@ -16,11 +16,15 @@ const LoginPage: NextPage = () => {
 
   const userContext = useContext(UserContext);
 
-  const login = (event: React.FormEvent<HTMLFormElement>) => {
+  const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    userContext;
-    router.push(`/recipes`);
+    const success = await userContext.login(currentUser);
+    if (success) {
+      router.push(`/recipes`);
+      return;
+    }
+    alert("Error to authenticate!! Please, try again!");
   };
 
   const onChangeField = (event: any) => {

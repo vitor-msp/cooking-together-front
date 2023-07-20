@@ -9,5 +9,5 @@ export type CurrentUser = {
   email?: string;
   password?: string;
   createdAt?: string;
-  token: string;
+  token?: string;
 };
