@@ -2,15 +2,13 @@ import React, { useEffect } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { getRecipesMock } from "@/src/mocks/recipes";
 import { Recipe } from "@/src/domain/Recipe";
+import Link from "next/link";
 
 type RecipesPageProps = {
   recipes: Recipe[];
 };
 
 const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
-  useEffect(() => {
-    console.log(recipes);
-  }, []);
   return (
     <div>
       <h1>RecipesPage</h1>
@@ -18,9 +16,12 @@ const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
         {recipes?.map(
           ({ id, servings, title, totalTimeInMinutes, updatedAt }) => {
             return (
-              <li
-                key={id}
-              >{`${servings} ${title} ${totalTimeInMinutes} ${updatedAt}`}</li>
+              <li key={id}>
+                {/* passHref */}
+                <Link href={`/recipes/${id}`}>
+                  {`${servings} ${title} ${totalTimeInMinutes} ${updatedAt}`}
+                </Link>
+              </li>
             );
           }
         )}
