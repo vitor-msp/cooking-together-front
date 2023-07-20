@@ -9,9 +9,14 @@ type MyRecipesPageProps = {
 };
 
 const MyRecipesPage: NextPage<MyRecipesPageProps> = ({ recipes }) => {
+  const addRecipe = () => {};
+
   return (
     <div>
       <h1>MyRecipesPage</h1>
+      <button type="button">
+        <Link href={`/my-recipes/new`}>add new recipe</Link>
+      </button>
       <ul>
         {recipes?.map(
           ({ id, servings, title, totalTimeInMinutes, updatedAt }) => {

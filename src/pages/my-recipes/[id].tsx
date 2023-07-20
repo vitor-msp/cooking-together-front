@@ -7,7 +7,7 @@ import { Recipe } from "@/src/domain/Recipe";
 import { useRouter } from "next/router";
 
 type MyRecipePageProps = {
-  recipe: Recipe;
+  recipe: Recipe | null;
 };
 
 const defaultRecipe: Recipe = {
@@ -26,6 +26,10 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
   const router = useRouter();
 
   useEffect(() => {
+    if (!recipe) {
+      setCanEdit(true);
+      return;
+    }
     setCurrentRecipe({ ...recipe });
   }, []);
 
@@ -179,7 +183,10 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params?.id ?? "0";
-  const recipe = getRecipeMock();
+  const id = context.params?.id ?? "new";
+  let recipe: Recipe | null = null;
+  if (id !== "new") {
+    recipe = getRecipeMock();
+  }
   return { props: { recipe }, revalidate: 1 };
 };
