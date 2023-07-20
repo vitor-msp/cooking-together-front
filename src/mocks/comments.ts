@@ -1,7 +1,7 @@
 import { Comment } from "../domain/Comment";
 
-export const getCommentsMock = (): Comment[] => {
-  return [
+export abstract class GetCommentsMock {
+  static comments: Comment[] = [
     {
       id: "1",
       user: { id: "1", name: "ciclano" },
@@ -21,4 +21,12 @@ export const getCommentsMock = (): Comment[] => {
       text: "çfkjbpwh qohfrv hvoher",
     },
   ];
-};
+
+  static add(comment: Comment): void {
+    GetCommentsMock.comments.push(comment);
+  }
+
+  static get() {
+    return GetCommentsMock.comments;
+  }
+}

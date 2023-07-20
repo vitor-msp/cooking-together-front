@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { getCommentsMock } from "../mocks/comments";
+import { GetCommentsMock } from "../mocks/comments";
 import { Comment } from "../domain/Comment";
 import { UserContext } from "../context/UserProvider";
 
@@ -9,12 +9,24 @@ type CommentsProps = {
 
 const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
+  const [currentComment, setCurrentComment] = useState<string>("");
 
   const userContext = useContext(UserContext);
 
   useEffect(() => {
-    setComments(getCommentsMock());
+    setComments(GetCommentsMock.get());
   }, []);
+
+  const addComment = () => {
+    const newComment: Comment = {
+      text: currentComment,
+      createdAt: new Date().toISOString(),
+      recipeId,
+      userId: userContext.user?.id,
+    };
+    GetCommentsMock.add(newComment);
+    setComments((c) => [...c, newComment]);
+  };
 
   return (
     <div>
@@ -28,7 +40,20 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
           );
         })}
       </ul>
-      <span>{userContext.user?.name}</span>
+      <div>
+        <span>{userContext.user?.name}</span>
+        <br />
+        <input
+          type="text"
+          name=""
+          id=""
+          value={currentComment}
+          onChange={(e) => setCurrentComment(e.target.value)}
+        />
+        <button type="button" onClick={addComment}>
+          add comment
+        </button>
+      </div>
     </div>
   );
 };
