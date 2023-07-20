@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getCommentsMock } from "../mocks/comments";
 import { Comment } from "../domain/Comment";
+import { UserContext } from "../context/UserProvider";
 
 type CommentsProps = {
   recipeId: string;
@@ -8,6 +9,8 @@ type CommentsProps = {
 
 const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
+
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     setComments(getCommentsMock());
@@ -25,6 +28,7 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
           );
         })}
       </ul>
+      <span>{userContext.user?.name}</span>
     </div>
   );
 };
