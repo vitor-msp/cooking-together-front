@@ -9,19 +9,23 @@ type MyRecipePageProps = {
   recipe: Recipe;
 };
 
+const defaultRecipe: Recipe = {
+  totalTimeInMinutes: 0,
+  servings: 0,
+  ingredients: [],
+  directions: [],
+  description: "",
+  updatedAt: "",
+  createdAt: "",
+};
+
 const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
-  const {
-    id,
-    servings,
-    title,
-    totalTimeInMinutes,
-    updatedAt,
-    createdAt,
-    description,
-    directions,
-    ingredients,
-    user,
-  } = recipe;
+  const [currentRecipe, setCurrentRecipe] = useState<Recipe>(defaultRecipe);
+  const [canEdit, setCanEdit] = useState<boolean>(false);
+
+  useEffect(() => {
+    setCurrentRecipe({ ...recipe });
+  }, []);
 
   const saveRecipe = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,17 +39,35 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
       <form action="" onSubmit={saveRecipe}>
         <label htmlFor="">
           recipe id
-          <input type="text" name="" id="" value={id} disabled={true} />
+          <input
+            type="text"
+            name=""
+            id=""
+            value={currentRecipe.id}
+            disabled={!canEdit}
+          />
         </label>
         <br />
         <label htmlFor="">
           servings
-          <input type="number" name="" id="" value={servings} disabled={true} />
+          <input
+            type="number"
+            name=""
+            id=""
+            value={currentRecipe.servings}
+            disabled={!canEdit}
+          />
         </label>
         <br />
         <label htmlFor="">
           title
-          <input type="text" name="" id="" value={title} disabled={true} />
+          <input
+            type="text"
+            name=""
+            id=""
+            value={currentRecipe.title}
+            disabled={!canEdit}
+          />
         </label>
         <br />
         <label htmlFor="">
@@ -54,39 +76,63 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
             type="number"
             name=""
             id=""
-            value={totalTimeInMinutes}
-            disabled={true}
+            value={currentRecipe.totalTimeInMinutes}
+            disabled={!canEdit}
           />
         </label>
         <br />
         <label htmlFor="">
           updatedAt
-          <input type="text" name="" id="" value={updatedAt} disabled={true} />
+          <input
+            type="text"
+            name=""
+            id=""
+            value={currentRecipe.updatedAt}
+            disabled={!canEdit}
+          />
         </label>
         <br />
         <label htmlFor="">
           createdAt
-          <input type="text" name="" id="" value={createdAt} disabled={true} />
+          <input
+            type="text"
+            name=""
+            id=""
+            value={currentRecipe.createdAt}
+            disabled={!canEdit}
+          />
         </label>
         <br />
-        <textarea name="" id="" cols={30} rows={10}>
-          {description}
+        <textarea name="" id="" cols={30} rows={10} disabled={!canEdit}>
+          {currentRecipe.description}
         </textarea>
         <hr />
         <label htmlFor="">
           user id
-          <input type="text" name="" id="" value={user?.id} disabled={true} />
+          <input
+            type="text"
+            name=""
+            id=""
+            value={currentRecipe.user?.id}
+            disabled={!canEdit}
+          />
         </label>
         <br />
         <label htmlFor="">
           user name
-          <input type="text" name="" id="" value={user?.name} disabled={true} />
+          <input
+            type="text"
+            name=""
+            id=""
+            value={currentRecipe.user?.name}
+            disabled={!canEdit}
+          />
         </label>
         <br />
         <div>
           <h4>directions</h4>
           <ul>
-            {directions?.map(({ description }) => {
+            {currentRecipe.directions?.map(({ description }) => {
               return <li key={Math.random() * 99}>{description}</li>;
             })}
           </ul>
@@ -94,18 +140,31 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <div>
           <h4>ingredients</h4>
           <ul>
-            {ingredients?.map(({ product, quantity, unitOfMeasurement }) => {
-              return (
-                <li
-                  key={Math.random() * 99}
-                >{`${product} - ${quantity} - ${unitOfMeasurement}`}</li>
-              );
-            })}
+            {currentRecipe.ingredients?.map(
+              ({ product, quantity, unitOfMeasurement }) => {
+                return (
+                  <li
+                    key={Math.random() * 99}
+                  >{`${product} - ${quantity} - ${unitOfMeasurement}`}</li>
+                );
+              }
+            )}
           </ul>
         </div>
-        <button type="submit">Save</button>
+        {canEdit ? (
+          <>
+            <button type="button" onClick={() => setCanEdit(false)}>
+              Cancel
+            </button>
+            <button type="submit">Save</button>
+          </>
+        ) : (
+          <button type="button" onClick={() => setCanEdit(true)}>
+            Edit
+          </button>
+        )}
       </form>
-      <Comments recipeId={id ?? ""} />
+      <Comments recipeId={currentRecipe.id ?? ""} />
     </div>
   );
 };
