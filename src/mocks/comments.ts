@@ -1,4 +1,4 @@
-import { Comment } from "../domain/Comment";
+import { Comment } from "../core/domain/Comment";
 
 export abstract class GetCommentsMock {
   static id: number = 0;

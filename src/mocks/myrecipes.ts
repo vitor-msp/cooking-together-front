@@ -1,4 +1,4 @@
-import { Recipe } from "../domain/Recipe";
+import { Recipe } from "../core/domain/Recipe";
 
 export const getMyRecipesMock = (): Recipe[] => {
   let id = 0;

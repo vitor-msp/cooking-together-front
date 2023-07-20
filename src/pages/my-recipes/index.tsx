@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { GetServerSideProps, NextPage } from "next";
-import { Recipe } from "@/src/domain/Recipe";
+import { Recipe } from "@/src/core/domain/Recipe";
 import Link from "next/link";
 import { getMyRecipesMock } from "@/src/mocks/myrecipes";
 

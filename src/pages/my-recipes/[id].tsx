@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { getRecipeMock, getRecipesMock } from "@/src/mocks/recipes";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
-import { Recipe } from "@/src/domain/Recipe";
+import { Recipe } from "@/src/core/domain/Recipe";
 import { useRouter } from "next/router";
 
 type MyRecipePageProps = {

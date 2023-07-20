@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { GetCommentsMock } from "../mocks/comments";
-import { Comment } from "../domain/Comment";
+import { Comment } from "../core/domain/Comment";
 import { UserContext } from "../context/UserProvider";
 
 type CommentsProps = {

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, createContext, useState } from "react";
-import { CurrentUser, User } from "../domain/User";
+import { CurrentUser, User } from "../core/domain/User";
 
 export type UserContextType = {
   user: CurrentUser | null;

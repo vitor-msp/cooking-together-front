@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { CurrentUser } from "../domain/User";
+import { CurrentUser } from "../core/domain/User";
 
 const defaultCurrentUser: CurrentUser = {
   email: "",

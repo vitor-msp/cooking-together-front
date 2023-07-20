@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import { CurrentUser } from "../domain/User";
+import { CurrentUser } from "../core/domain/User";
 import { UserContext } from "../context/UserProvider";
 
 const defaultCurrentUser: CurrentUser = {

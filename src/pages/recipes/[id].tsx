@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { Recipe } from "@/src/domain/Recipe";
+import { Recipe } from "@/src/core/domain/Recipe";
 import { getRecipeMock, getRecipesMock } from "@/src/mocks/recipes";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
