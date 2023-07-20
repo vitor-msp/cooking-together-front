@@ -4,6 +4,7 @@ import { getRecipeMock, getRecipesMock } from "@/src/mocks/recipes";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
 import { Recipe } from "@/src/domain/Recipe";
+import { useRouter } from "next/router";
 
 type MyRecipePageProps = {
   recipe: Recipe;
@@ -22,6 +23,7 @@ const defaultRecipe: Recipe = {
 const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
   const [currentRecipe, setCurrentRecipe] = useState<Recipe>(defaultRecipe);
   const [canEdit, setCanEdit] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     setCurrentRecipe({ ...recipe });
@@ -30,13 +32,10 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
   const saveRecipe = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    router.push(`/my-recipes`);
   };
 
-  const onChangeField = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | ChangeEventHandler<HTMLTextAreaElement>
-  ) => {
+  const onChangeField = (event: any) => {
     const newRecipe = Object.assign(
       {},
       {
@@ -45,6 +44,11 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
       }
     );
     setCurrentRecipe(newRecipe);
+  };
+
+  const cancelEdit = () => {
+    setCanEdit(false);
+    setCurrentRecipe({ ...recipe });
   };
 
   return (
@@ -128,29 +132,6 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         >
           {currentRecipe.description}
         </textarea>
-        <hr />
-        <label htmlFor="">
-          user id
-          <input
-            onChange={onChangeField}
-            type="text"
-            name="uderid"
-            value={currentRecipe.user?.id}
-            disabled={!canEdit}
-          />
-        </label>
-        <br />
-        <label htmlFor="">
-          user name
-          <input
-            onChange={onChangeField}
-            type="text"
-            name="udername"
-            value={currentRecipe.user?.name}
-            disabled={!canEdit}
-          />
-        </label>
-        <br />
         <div>
           <h4>directions</h4>
           <ul>
@@ -175,7 +156,7 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         </div>
         {canEdit ? (
           <>
-            <button type="button" onClick={() => setCanEdit(false)}>
+            <button type="button" onClick={cancelEdit}>
               Cancel
             </button>
             <button type="submit">Save</button>
