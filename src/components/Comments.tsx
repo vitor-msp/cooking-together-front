@@ -26,6 +26,7 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
     };
     GetCommentsMock.add(newComment);
     setComments(() => [...GetCommentsMock.get()]);
+    setCurrentComment("");
   };
 
   const deleteComment = (id: string) => {
