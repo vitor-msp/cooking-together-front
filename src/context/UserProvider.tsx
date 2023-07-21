@@ -1,15 +1,15 @@
 import React, { PropsWithChildren, createContext, useState } from "react";
-import { CurrentUser, User } from "../core/domain/User";
-import { loginUsecase, logoutUsecase } from "../factory";
+import { CurrentUser } from "../core/domain/User";
+import { getLoggedUserUsecase, loginUsecase, logoutUsecase } from "../factory";
 
 export type UserContextType = {
-  user: CurrentUser | null;
+  getUser: () => Promise<CurrentUser | null>;
   login: (user: CurrentUser) => Promise<boolean>;
   logout: () => Promise<boolean>;
 };
 
 const defaultUserContext: UserContextType = {
-  user: null,
+  getUser: async () => null,
   login: async (user: CurrentUser) => false,
   logout: async () => false,
 };
@@ -32,8 +32,14 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
     return await logoutUsecase.execute();
   };
 
+  const getUser = async (): Promise<CurrentUser | null> => {
+    const user = await getLoggedUserUsecase.execute();
+    if (user) setLoggedUser(user);
+    return user;
+  };
+
   return (
-    <UserContext.Provider value={{ user: loggedUser, login, logout }}>
+    <UserContext.Provider value={{ getUser, login, logout }}>
       {children}
     </UserContext.Provider>
   );

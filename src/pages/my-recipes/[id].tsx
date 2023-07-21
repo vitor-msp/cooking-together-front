@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
-import {
-  GetServerSideProps,
-  GetStaticPaths,
-  GetStaticProps,
-  NextPage,
-} from "next";
+import React, { useContext, useEffect, useState } from "react";
+import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
 import { Recipe } from "@/src/core/domain/Recipe";
 import { useRouter } from "next/router";
-import { getRecipeUsecase } from "@/src/factory";
+import { addRecipeUsecase, getRecipeUsecase } from "@/src/factory";
 import { Cookie } from "@/src/utils/Cookie";
 import { Params } from "@/src/utils/Params";
+import { UserContext } from "@/src/context/UserProvider";
 
 type MyRecipePageProps = {
   recipe: Recipe | null;
@@ -31,6 +27,7 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
   const [currentRecipe, setCurrentRecipe] = useState<Recipe>(defaultRecipe);
   const [canEdit, setCanEdit] = useState<boolean>(false);
   const router = useRouter();
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     if (!recipe) {
@@ -40,9 +37,16 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
     setCurrentRecipe({ ...recipe });
   }, []);
 
-  const saveRecipe = (event: React.FormEvent<HTMLFormElement>) => {
+  const saveRecipe = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    const loggedUser = await userContext.getUser();
+    if (!loggedUser) return;
+    const success = await addRecipeUsecase.execute(currentRecipe, loggedUser);
+    if (!success) {
+      alert("error to save recipe");
+      return;
+    }
     router.push(`/my-recipes`);
   };
 
@@ -135,14 +139,12 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
         <br />
         <textarea
           name="description"
-          id=""
           cols={30}
           rows={10}
           disabled={!canEdit}
           onChange={onChangeField}
-        >
-          {currentRecipe.description}
-        </textarea>
+          value={currentRecipe.description}
+        />
         <div>
           <h4>directions</h4>
           <ul>
@@ -188,6 +190,9 @@ export default MyRecipePage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const user = Cookie.getUser(context.req.cookies);
   const id: string = Params.getId(context.params);
-  const recipe = await getRecipeUsecase.execute(id, user);
+  let recipe: Recipe | null = null;
+  if (id.localeCompare("new") !== 0) {
+    recipe = await getRecipeUsecase.execute(id, user);
+  }
   return { props: { recipe } };
 };

@@ -6,7 +6,9 @@ import { Recipe } from "../core/domain/Recipe";
 export class HttpGate implements IHttpGate {
   constructor(private readonly api: AxiosInstance) {}
 
-  private getAuthHeader(token: string, tokenType: string) {
+  private getAuthHeader(user: CurrentUser) {
+    const { token, tokenType } = user;
+    if (!token || !tokenType) throw new Error("missing token");
     return {
       headers: { Authorization: `${tokenType} ${token}` },
     };
@@ -16,7 +18,7 @@ export class HttpGate implements IHttpGate {
     const res = await this.api
       .post(`/users`, user)
       .then((res) => res.data)
-      .catch((err) => {
+      .catch(() => {
         throw new Error("error to register");
       });
   }
@@ -34,10 +36,8 @@ export class HttpGate implements IHttpGate {
   }
 
   async getRecipes(user: CurrentUser): Promise<Recipe[]> {
-    const { token, tokenType } = user;
-    if (!token || !tokenType) throw new Error("missing token");
     const recipes = await this.api
-      .get<Recipe[]>(`/recipes`, this.getAuthHeader(token, tokenType))
+      .get<Recipe[]>(`/recipes`, this.getAuthHeader(user))
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to get recipes");
@@ -46,10 +46,8 @@ export class HttpGate implements IHttpGate {
   }
 
   async getRecipe(id: string, user: CurrentUser): Promise<Recipe> {
-    const { token, tokenType } = user;
-    if (!token || !tokenType) throw new Error("missing token");
     const recipe = await this.api
-      .get<Recipe>(`/recipes/${id}`, this.getAuthHeader(token, tokenType))
+      .get<Recipe>(`/recipes/${id}`, this.getAuthHeader(user))
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to get recipe");
@@ -58,10 +56,8 @@ export class HttpGate implements IHttpGate {
   }
 
   async logout(user: CurrentUser): Promise<void> {
-    const { token, tokenType } = user;
-    if (!token || !tokenType) throw new Error("missing token");
     const res = await this.api
-      .post(`/logout`, this.getAuthHeader(token, tokenType))
+      .post(`/logout`, this.getAuthHeader(user))
       .then()
       .catch(() => {
         throw new Error("error to logout");
@@ -69,17 +65,24 @@ export class HttpGate implements IHttpGate {
   }
 
   async getMyRecipes(user: CurrentUser): Promise<Recipe[]> {
-    const { token, tokenType, id } = user;
-    if (!token || !tokenType || !id) throw new Error("missing token");
+    const { id } = user;
+    if (!id) throw new Error("missing id");
     const recipes = await this.api
-      .get<Recipe[]>(
-        `/recipes?userId=${id}`,
-        this.getAuthHeader(token, tokenType)
-      )
+      .get<Recipe[]>(`/recipes?userId=${id}`, this.getAuthHeader(user))
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to get my recipes");
       });
     return recipes;
+  }
+
+  async postRecipe(recipe: Recipe, user: CurrentUser): Promise<void> {
+    console.log(recipe);
+    await this.api
+      .post(`/recipes`, recipe, this.getAuthHeader(user))
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to register");
+      });
   }
 }

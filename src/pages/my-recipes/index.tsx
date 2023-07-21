@@ -10,8 +10,6 @@ type MyRecipesPageProps = {
 };
 
 const MyRecipesPage: NextPage<MyRecipesPageProps> = ({ recipes }) => {
-  const addRecipe = () => {};
-
   return (
     <div>
       <h1>MyRecipesPage</h1>
