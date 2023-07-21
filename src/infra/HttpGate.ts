@@ -23,14 +23,14 @@ export class HttpGate implements IHttpGate {
 
   async login(
     user: CurrentUser
-  ): Promise<{ token: string; tokenType: string }> {
-    const { token, type } = await this.api
-      .post<{ token: string; type: string }>(`/login`, user)
+  ): Promise<{ token: string; tokenType: string; userId: string }> {
+    const { token, type, userId } = await this.api
+      .post<{ token: string; type: string; userId: string }>(`/login`, user)
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to authenticate");
       });
-    return { token, tokenType: type };
+    return { token, tokenType: type, userId };
   }
 
   async getRecipes(user: CurrentUser): Promise<Recipe[]> {
@@ -66,5 +66,20 @@ export class HttpGate implements IHttpGate {
       .catch(() => {
         throw new Error("error to logout");
       });
+  }
+
+  async getMyRecipes(user: CurrentUser): Promise<Recipe[]> {
+    const { token, tokenType, id } = user;
+    if (!token || !tokenType || !id) throw new Error("missing token");
+    const recipes = await this.api
+      .get<Recipe[]>(
+        `/recipes?userId=${id}`,
+        this.getAuthHeader(token, tokenType)
+      )
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to get my recipes");
+      });
+    return recipes;
   }
 }

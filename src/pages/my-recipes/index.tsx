@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { Recipe } from "@/src/core/domain/Recipe";
 import Link from "next/link";
-import { getMyRecipesMock } from "@/src/mocks/myrecipes";
+import { getMyRecipesUsecase } from "@/src/factory";
+import { Cookie } from "@/src/utils/Cookie";
 
 type MyRecipesPageProps = {
   recipes: Recipe[];
@@ -38,7 +39,9 @@ const MyRecipesPage: NextPage<MyRecipesPageProps> = ({ recipes }) => {
 export default MyRecipesPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const myRecipes = getMyRecipesMock();
+  const myRecipes = await getMyRecipesUsecase.execute(
+    Cookie.getUser(context.req.cookies)
+  );
   return {
     props: {
       recipes: myRecipes,

@@ -2,10 +2,17 @@ import React from "react";
 import { UserProvider } from "../context/UserProvider";
 import { AppProps } from "next/app";
 import Logout from "../components/Logout";
+import Link from "next/link";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <UserProvider>
+      <nav>
+        <Link href={"/recipes"}>recipes</Link>
+        <br />
+        <Link href={"/my-recipes"}>my-recipes</Link>
+      </nav>
+      <br />
       <Logout />
       <Component {...pageProps} />
     </UserProvider>

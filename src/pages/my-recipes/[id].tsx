@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { getRecipeMock, getRecipesMock } from "@/src/mocks/recipes";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
 import { Recipe } from "@/src/core/domain/Recipe";
@@ -186,7 +185,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id ?? "new";
   let recipe: Recipe | null = null;
   if (id !== "new") {
-    recipe = getRecipeMock();
+    // recipe = getRecipeMock();
   }
   return { props: { recipe }, revalidate: 1 };
 };

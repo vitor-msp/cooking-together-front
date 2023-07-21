@@ -1,46 +1,5 @@
 import { Recipe } from "../core/domain/Recipe";
 
-export const getMyRecipesMock = (): Recipe[] => {
-  let id = 0;
-  return [
-    {
-      id: (id++).toString(),
-      title: "recipe 1",
-      servings: 1,
-      totalTimeInMinutes: 50,
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: (id++).toString(),
-      title: "recipe 1",
-      servings: 1,
-      totalTimeInMinutes: 50,
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: (id++).toString(),
-      title: "recipe 1",
-      servings: 1,
-      totalTimeInMinutes: 50,
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: (id++).toString(),
-      title: "recipe 1",
-      servings: 1,
-      totalTimeInMinutes: 50,
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: (id++).toString(),
-      title: "recipe 1",
-      servings: 1,
-      totalTimeInMinutes: 50,
-      updatedAt: new Date().toISOString(),
-    },
-  ];
-};
-
 export const getMyRecipeMock = (): Recipe => {
   return {
     id: "1",
