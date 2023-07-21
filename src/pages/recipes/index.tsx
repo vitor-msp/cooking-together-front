@@ -3,6 +3,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { getRecipesMock } from "@/src/mocks/recipes";
 import { Recipe } from "@/src/core/domain/Recipe";
 import Link from "next/link";
+import { getRecipesUsecase } from "@/src/factory";
 
 type RecipesPageProps = {
   recipes: Recipe[];
@@ -33,7 +34,10 @@ const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
 export default RecipesPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const recipes = getRecipesMock();
+  // context.req.cookies
+  console.log(context.req.cookies);
+  const recipes = await getRecipesUsecase.execute();
+  console.log(recipes);
   return {
     props: {
       recipes,

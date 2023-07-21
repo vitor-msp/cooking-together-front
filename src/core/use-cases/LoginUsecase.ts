@@ -10,9 +10,10 @@ export class LoginUsecase {
 
   async execute(user: CurrentUser): Promise<CurrentUser | null> {
     try {
-      const { token } = await this.userApi.login(user);
+      const { token, tokenType } = await this.userApi.login(user);
       delete user.password;
       user.token = token;
+      user.tokenType = tokenType;
       await this.userDataRepo.save(user);
       return user;
     } catch (error) {
