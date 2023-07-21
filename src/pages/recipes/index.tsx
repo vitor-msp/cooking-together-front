@@ -4,6 +4,7 @@ import { getRecipesMock } from "@/src/mocks/recipes";
 import { Recipe } from "@/src/core/domain/Recipe";
 import Link from "next/link";
 import { getRecipesUsecase } from "@/src/factory";
+import { CurrentUser } from "@/src/core/domain/User";
 
 type RecipesPageProps = {
   recipes: Recipe[];
@@ -34,9 +35,8 @@ const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
 export default RecipesPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // context.req.cookies
-  console.log(context.req.cookies);
-  const recipes = await getRecipesUsecase.execute();
+  const user: CurrentUser = JSON.parse(context.req.cookies["userData"] || "");
+  const recipes = await getRecipesUsecase.execute(user);
   console.log(recipes);
   return {
     props: {

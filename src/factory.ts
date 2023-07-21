@@ -11,4 +11,4 @@ const httpGate = new HttpGate(axios.create({ baseURL: apiUrl }));
 const userDataRepo = new UserDataRepo();
 export const loginUsecase = new LoginUsecase(httpGate, userDataRepo);
 export const signupUsecase = new SignupUsecase(httpGate);
-export const getRecipesUsecase = new GetRecipesUsecase(httpGate, userDataRepo);
+export const getRecipesUsecase = new GetRecipesUsecase(httpGate);

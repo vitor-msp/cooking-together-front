@@ -8,11 +8,12 @@ export class UserDataRepo implements IUserDataRepo {
 
   async get(): Promise<CurrentUser | null> {
     const keyValuePairs = document.cookie.split(";");
-    const user: any = {};
+    const cookies: any = {};
     keyValuePairs.forEach((item) => {
       const [key, value] = item.split("=");
-      user[decodeURIComponent(key)] = decodeURIComponent(value);
+      cookies[decodeURIComponent(key)] = decodeURIComponent(value);
     });
-    return user as CurrentUser;
+    const user: CurrentUser = JSON.parse(cookies["userData"]);
+    return user;
   }
 }
