@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import React from "react";
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { Recipe } from "@/src/core/domain/Recipe";
-import { getRecipeMock, getRecipesMock } from "@/src/mocks/recipes";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
+import { Cookie } from "@/src/utils/Cookie";
+import { Params } from "@/src/utils/Params";
+import { getRecipeUsecase } from "@/src/factory";
 
 type RecipePageProps = {
   recipe: Recipe;
@@ -59,12 +61,11 @@ const RecipePage: NextPage<RecipePageProps> = ({ recipe }) => {
 
 export default RecipePage;
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
-  return { paths: [], fallback: "blocking" };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params?.id ?? "0";
-  const recipe = getRecipeMock();
-  return { props: { recipe }, revalidate: 1 };
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const user = Cookie.getUser(context.req.cookies);
+  const id: string = Params.getId(context.params);
+  const recipe = await getRecipeUsecase.execute(id, user);
+  return { props: { recipe } };
 };

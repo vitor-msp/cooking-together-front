@@ -6,6 +6,12 @@ import { Recipe } from "../core/domain/Recipe";
 export class HttpGate implements IHttpGate {
   constructor(private readonly api: AxiosInstance) {}
 
+  private getAuthHeader(token: string, tokenType: string) {
+    return {
+      headers: { Authorization: `${tokenType} ${token}` },
+    };
+  }
+
   async postUser(user: CurrentUser): Promise<void> {
     const res = await this.api
       .post(`/users`, user)
@@ -29,14 +35,25 @@ export class HttpGate implements IHttpGate {
 
   async getRecipes(token: string, tokenType: string): Promise<Recipe[]> {
     const recipes = await this.api
-      .get<Recipe[]>(`/recipes`, {
-        headers: { Authorization: `${tokenType} ${token}` },
-      })
+      .get<Recipe[]>(`/recipes`, this.getAuthHeader(token, tokenType))
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to get recipes");
       });
-    console.log(recipes);
     return recipes;
+  }
+
+  async getRecipe(
+    id: string,
+    token: string,
+    tokenType: string
+  ): Promise<Recipe> {
+    const recipe = await this.api
+      .get<Recipe>(`/recipes/${id}`, this.getAuthHeader(token, tokenType))
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to get recipe");
+      });
+    return recipe;
   }
 }
