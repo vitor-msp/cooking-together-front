@@ -56,4 +56,15 @@ export class HttpGate implements IHttpGate {
       });
     return recipe;
   }
+
+  async logout(user: CurrentUser): Promise<void> {
+    const { token, tokenType } = user;
+    if (!token || !tokenType) throw new Error("error to logout");
+    const res = await this.api
+      .post(`/logout`, this.getAuthHeader(token, tokenType))
+      .then()
+      .catch(() => {
+        throw new Error("error to logout");
+      });
+  }
 }

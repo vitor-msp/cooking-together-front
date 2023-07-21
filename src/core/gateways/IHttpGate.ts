@@ -4,6 +4,7 @@ import { CurrentUser } from "../domain/User";
 export interface IHttpGate {
   postUser(user: CurrentUser): Promise<void>;
   login(user: CurrentUser): Promise<{ token: string; tokenType: string }>;
+  logout(user: CurrentUser): Promise<void>;
   getRecipes(token: string, tokenType: string): Promise<Recipe[]>;
   getRecipe(id: string, token: string, tokenType: string): Promise<Recipe>;
 }

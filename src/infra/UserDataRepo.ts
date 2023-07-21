@@ -16,4 +16,8 @@ export class UserDataRepo implements IUserDataRepo {
     const user: CurrentUser = JSON.parse(cookies["userData"]);
     return user;
   }
+
+  async clean(): Promise<void> {
+    document.cookie = "userData=null;";
+  }
 }
