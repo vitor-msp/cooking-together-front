@@ -6,7 +6,7 @@ export class SignupUsecase {
 
   async execute(user: CurrentUser): Promise<boolean> {
     try {
-      await this.userApi.postUser(user);
+      await this.userApi.addUser(user);
       return true;
     } catch (error) {
       return false;

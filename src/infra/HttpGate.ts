@@ -14,7 +14,7 @@ export class HttpGate implements IHttpGate {
     };
   }
 
-  async postUser(user: CurrentUser): Promise<void> {
+  async addUser(user: CurrentUser): Promise<void> {
     const res = await this.api
       .post(`/users`, user)
       .then((res) => res.data)
@@ -76,13 +76,21 @@ export class HttpGate implements IHttpGate {
     return recipes;
   }
 
-  async postRecipe(recipe: Recipe, user: CurrentUser): Promise<void> {
-    console.log(recipe);
+  async addRecipe(recipe: Recipe, user: CurrentUser): Promise<void> {
     await this.api
       .post(`/recipes`, recipe, this.getAuthHeader(user))
       .then((res) => res.data)
       .catch(() => {
-        throw new Error("error to register");
+        throw new Error("error to add recipe");
+      });
+  }
+
+  async editRecipe(recipe: Recipe, user: CurrentUser): Promise<void> {
+    await this.api
+      .put(`/recipes/${recipe.id}`, recipe, this.getAuthHeader(user))
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to edit recipe");
       });
   }
 }

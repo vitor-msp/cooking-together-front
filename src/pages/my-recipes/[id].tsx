@@ -4,13 +4,18 @@ import Link from "next/link";
 import Comments from "@/src/components/Comments";
 import { Recipe } from "@/src/core/domain/Recipe";
 import { useRouter } from "next/router";
-import { addRecipeUsecase, getRecipeUsecase } from "@/src/factory";
+import {
+  addRecipeUsecase,
+  editRecipeUsecase,
+  getRecipeUsecase,
+} from "@/src/factory";
 import { Cookie } from "@/src/utils/Cookie";
 import { Params } from "@/src/utils/Params";
 import { UserContext } from "@/src/context/UserProvider";
 
 type MyRecipePageProps = {
   recipe: Recipe | null;
+  isAdd: boolean;
 };
 
 const defaultRecipe: Recipe = {
@@ -23,14 +28,14 @@ const defaultRecipe: Recipe = {
   createdAt: "",
 };
 
-const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
+const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
   const [currentRecipe, setCurrentRecipe] = useState<Recipe>(defaultRecipe);
   const [canEdit, setCanEdit] = useState<boolean>(false);
   const router = useRouter();
   const userContext = useContext(UserContext);
 
   useEffect(() => {
-    if (!recipe) {
+    if (isAdd) {
       setCanEdit(true);
       return;
     }
@@ -42,7 +47,12 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe }) => {
     event.stopPropagation();
     const loggedUser = await userContext.getUser();
     if (!loggedUser) return;
-    const success = await addRecipeUsecase.execute(currentRecipe, loggedUser);
+    let success = false;
+    if (isAdd) {
+      success = await addRecipeUsecase.execute(currentRecipe, loggedUser);
+    } else {
+      success = await editRecipeUsecase.execute(currentRecipe, loggedUser);
+    }
     if (!success) {
       alert("error to save recipe");
       return;
@@ -191,8 +201,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const user = Cookie.getUser(context.req.cookies);
   const id: string = Params.getId(context.params);
   let recipe: Recipe | null = null;
+  let isAdd: boolean = true;
   if (id.localeCompare("new") !== 0) {
     recipe = await getRecipeUsecase.execute(id, user);
+    isAdd = false;
   }
-  return { props: { recipe } };
+  return { props: { recipe, isAdd } };
 };
