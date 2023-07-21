@@ -7,9 +7,7 @@ export class GetRecipeUsecase {
 
   async execute(id: string, user: CurrentUser): Promise<Recipe> {
     try {
-      if (!user || !user.token || !user.tokenType) return {};
-      const { token, tokenType } = user;
-      return await this.recipesApi.getRecipe(id, token, tokenType);
+      return await this.recipesApi.getRecipe(id,user);
     } catch (error) {
       return {};
     }

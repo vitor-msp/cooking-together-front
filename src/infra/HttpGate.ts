@@ -33,7 +33,9 @@ export class HttpGate implements IHttpGate {
     return { token, tokenType: type };
   }
 
-  async getRecipes(token: string, tokenType: string): Promise<Recipe[]> {
+  async getRecipes(user: CurrentUser): Promise<Recipe[]> {
+    const { token, tokenType } = user;
+    if (!token || !tokenType) throw new Error("missing token");
     const recipes = await this.api
       .get<Recipe[]>(`/recipes`, this.getAuthHeader(token, tokenType))
       .then((res) => res.data)
@@ -43,11 +45,9 @@ export class HttpGate implements IHttpGate {
     return recipes;
   }
 
-  async getRecipe(
-    id: string,
-    token: string,
-    tokenType: string
-  ): Promise<Recipe> {
+  async getRecipe(id: string, user: CurrentUser): Promise<Recipe> {
+    const { token, tokenType } = user;
+    if (!token || !tokenType) throw new Error("missing token");
     const recipe = await this.api
       .get<Recipe>(`/recipes/${id}`, this.getAuthHeader(token, tokenType))
       .then((res) => res.data)
@@ -59,7 +59,7 @@ export class HttpGate implements IHttpGate {
 
   async logout(user: CurrentUser): Promise<void> {
     const { token, tokenType } = user;
-    if (!token || !tokenType) throw new Error("error to logout");
+    if (!token || !tokenType) throw new Error("missing token");
     const res = await this.api
       .post(`/logout`, this.getAuthHeader(token, tokenType))
       .then()
