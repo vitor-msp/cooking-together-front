@@ -13,6 +13,7 @@ import { EditRecipeUsecase } from "./core/use-cases/EditRecipeUsecase";
 import { GetUserDataUsecase } from "./core/use-cases/GetUserDataUsecase";
 import { EditUserDataUsecase } from "./core/use-cases/EditUserDataUsecase";
 import { ChangePasswordUsecase } from "./core/use-cases/ChangePasswordUsecase";
+import { DeleteRecipeUsecase } from "./core/use-cases/DeleteRecipeUsecase";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 if (!apiUrl) console.log("Error to connect to backend!");
@@ -29,6 +30,7 @@ export const changePasswordUsecase = new ChangePasswordUsecase(httpGate);
 
 export const addRecipeUsecase = new AddRecipeUsecase(httpGate);
 export const editRecipeUsecase = new EditRecipeUsecase(httpGate);
+export const deleteRecipeUsecase = new DeleteRecipeUsecase(httpGate);
 export const getRecipesUsecase = new GetRecipesUsecase(httpGate);
 export const getRecipeUsecase = new GetRecipeUsecase(httpGate);
 export const getMyRecipesUsecase = new GetMyRecipesUsecase(httpGate);

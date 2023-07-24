@@ -122,4 +122,13 @@ export class HttpGate implements IHttpGate {
         throw new Error("error to edit recipe");
       });
   }
+
+  async deleteRecipe(recipe: Recipe, user: CurrentUser): Promise<void> {
+    await this.api
+      .delete(`/recipes/${recipe.id}`, this.getAuthHeader(user))
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to delete recipe");
+      });
+  }
 }

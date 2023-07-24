@@ -6,6 +6,7 @@ import { Recipe } from "@/src/core/domain/Recipe";
 import { useRouter } from "next/router";
 import {
   addRecipeUsecase,
+  deleteRecipeUsecase,
   editRecipeUsecase,
   getRecipeUsecase,
 } from "@/src/factory";
@@ -76,9 +77,27 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
     setCurrentRecipe({ ...recipe });
   };
 
+  const deleteRecipe = async () => {
+    const loggedUser = await userContext.getUser();
+    if (!loggedUser) return;
+    const success = await deleteRecipeUsecase.execute(
+      currentRecipe,
+      loggedUser
+    );
+    if (!success) {
+      alert("Error to delete recipe!");
+      return;
+    }
+    router.push("/my-recipes");
+  };
+
   return (
     <div>
       <Link href={"/my-recipes"}>my recipes</Link>
+
+      <button type="button" onClick={deleteRecipe}>
+        delete
+      </button>
 
       <form action="" onSubmit={saveRecipe}>
         <label htmlFor="">
