@@ -9,7 +9,6 @@ export class GetUserDataUsecase {
       const userData = await this.userApi.getUser(user);
       return userData;
     } catch (error) {
-      console.log(error);
       return null;
     }
   }

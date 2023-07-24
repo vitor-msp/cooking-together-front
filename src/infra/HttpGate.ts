@@ -27,12 +27,19 @@ export class HttpGate implements IHttpGate {
     const userData = await this.api
       .get<CurrentUser>(`/users/${user.id}`, this.getAuthHeader(user))
       .then((res) => res.data)
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         throw new Error("error to get user data");
       });
-    console.log(userData);
     return userData;
+  }
+
+  async editUser(user: CurrentUser): Promise<void> {
+    await this.api
+      .put<CurrentUser>(`/users/${user.id}`, user, this.getAuthHeader(user))
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to edit user data");
+      });
   }
 
   async login(

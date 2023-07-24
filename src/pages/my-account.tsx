@@ -1,8 +1,9 @@
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CurrentUser } from "../core/domain/User";
-import { getUserDataUsecase } from "../factory";
+import { editUserDataUsecase, getUserDataUsecase } from "../factory";
 import { Cookie } from "../utils/Cookie";
+import { UserContext } from "../context/UserProvider";
 
 type MyAccountProps = {
   userData: CurrentUser;
@@ -11,6 +12,7 @@ type MyAccountProps = {
 const MyAccount: NextPage<MyAccountProps> = ({ userData }) => {
   const [currentUserData, setCurrentUserData] = useState<CurrentUser>(userData);
   const [canEdit, setCanEdit] = useState<boolean>(false);
+  const userContext = useContext(UserContext);
 
   const onChangeField = (event: any) => {
     const newUserData = Object.assign(
@@ -28,7 +30,20 @@ const MyAccount: NextPage<MyAccountProps> = ({ userData }) => {
     setCurrentUserData({ ...userData });
   };
 
-  const saveUserData = () => {};
+  const saveUserData = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const loggedUser = await userContext.getUser();
+    if (!loggedUser) return;
+    const { token, tokenType } = loggedUser;
+    const success = await editUserDataUsecase.execute({
+      ...currentUserData,
+      token,
+      tokenType,
+    });
+    if (!success) alert("Error to save user data!");
+    setCanEdit(false);
+  };
 
   return (
     <div>
