@@ -23,6 +23,18 @@ export class HttpGate implements IHttpGate {
       });
   }
 
+  async getUser(user: CurrentUser): Promise<CurrentUser> {
+    const userData = await this.api
+      .get<CurrentUser>(`/users/${user.id}`, this.getAuthHeader(user))
+      .then((res) => res.data)
+      .catch((error) => {
+        console.log(error);
+        throw new Error("error to get user data");
+      });
+    console.log(userData);
+    return userData;
+  }
+
   async login(
     user: CurrentUser
   ): Promise<{ token: string; tokenType: string; userId: string }> {

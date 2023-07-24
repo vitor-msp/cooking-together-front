@@ -11,6 +11,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Link href={"/recipes"}>recipes</Link>
         <br />
         <Link href={"/my-recipes"}>my-recipes</Link>
+        <br />
+        <Link href={"/my-account"}>my-account</Link>
       </nav>
       <br />
       <Logout />

@@ -9,7 +9,7 @@ export class EditRecipeUsecase {
     try {
       await this.recipesApi.editRecipe(recipe, user);
       return true;
-    } catch () {
+    } catch (error) {
       return false;
     }
   }

@@ -3,6 +3,7 @@ import { CurrentUser } from "../domain/User";
 
 export interface IHttpGate {
   addUser(user: CurrentUser): Promise<void>;
+  getUser(user: CurrentUser): Promise<CurrentUser>;
   login(
     user: CurrentUser
   ): Promise<{ token: string; tokenType: string; userId: string }>;
