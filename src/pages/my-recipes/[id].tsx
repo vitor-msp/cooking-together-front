@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
-import { Recipe } from "@/src/core/domain/Recipe";
+import { Direction, Recipe } from "@/src/core/domain/Recipe";
 import { useRouter } from "next/router";
 import {
   addRecipeUsecase,
@@ -13,6 +13,7 @@ import {
 import { Cookie } from "@/src/utils/Cookie";
 import { Params } from "@/src/utils/Params";
 import { UserContext } from "@/src/context/UserProvider";
+import Directions from "@/src/components/Directions";
 
 type MyRecipePageProps = {
   recipe: Recipe | null;
@@ -89,6 +90,12 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
       return;
     }
     router.push("/my-recipes");
+  };
+
+  const updateDirections = (newDirections: Direction[]) => {
+    setCurrentRecipe((r) => {
+      return { ...r, directions: newDirections };
+    });
   };
 
   return (
@@ -174,14 +181,10 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
           onChange={onChangeField}
           value={currentRecipe.description}
         />
-        <div>
-          <h4>directions</h4>
-          <ul>
-            {currentRecipe.directions?.map(({ description }) => {
-              return <li key={Math.random() * 99}>{description}</li>;
-            })}
-          </ul>
-        </div>
+        <Directions
+          directions={currentRecipe.directions ?? []}
+          updateDirections={updateDirections}
+        />
         <div>
           <h4>ingredients</h4>
           <ul>

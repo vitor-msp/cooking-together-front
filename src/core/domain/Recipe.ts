@@ -13,12 +13,12 @@ export type Recipe = {
   user?: User;
 };
 
-type Ingredient = {
+export type Ingredient = {
   quantity: number;
   unitOfMeasurement: string;
   product: string;
 };
 
-type Direction = {
+export type Direction = {
   description: string;
 };
