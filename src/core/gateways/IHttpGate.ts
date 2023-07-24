@@ -1,3 +1,4 @@
+import { ChangePassword } from "../domain/ChangePassword";
 import { Recipe } from "../domain/Recipe";
 import { CurrentUser } from "../domain/User";
 
@@ -5,6 +6,7 @@ export interface IHttpGate {
   addUser(user: CurrentUser): Promise<void>;
   getUser(user: CurrentUser): Promise<CurrentUser>;
   editUser(user: CurrentUser): Promise<void>;
+  changePassword(user: CurrentUser, data: ChangePassword): Promise<void>;
   login(
     user: CurrentUser
   ): Promise<{ token: string; tokenType: string; userId: string }>;

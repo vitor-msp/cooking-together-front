@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import { CurrentUser } from "../core/domain/User";
 import { IHttpGate } from "../core/gateways/IHttpGate";
 import { Recipe } from "../core/domain/Recipe";
+import { ChangePassword } from "../core/domain/ChangePassword";
 
 export class HttpGate implements IHttpGate {
   constructor(private readonly api: AxiosInstance) {}
@@ -35,10 +36,19 @@ export class HttpGate implements IHttpGate {
 
   async editUser(user: CurrentUser): Promise<void> {
     await this.api
-      .put<CurrentUser>(`/users/${user.id}`, user, this.getAuthHeader(user))
+      .put(`/users/${user.id}`, user, this.getAuthHeader(user))
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to edit user data");
+      });
+  }
+
+  async changePassword(user: CurrentUser, data: ChangePassword): Promise<void> {
+    await this.api
+      .put(`/users/${user.id}/password`, data, this.getAuthHeader(user))
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to change password");
       });
   }
 

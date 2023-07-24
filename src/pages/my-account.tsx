@@ -4,6 +4,7 @@ import { CurrentUser } from "../core/domain/User";
 import { editUserDataUsecase, getUserDataUsecase } from "../factory";
 import { Cookie } from "../utils/Cookie";
 import { UserContext } from "../context/UserProvider";
+import ChangePassword from "../components/ChangePassword";
 
 type MyAccountProps = {
   userData: CurrentUser;
@@ -85,6 +86,8 @@ const MyAccount: NextPage<MyAccountProps> = ({ userData }) => {
           </>
         )}
       </form>
+      <hr />
+      <ChangePassword />
     </div>
   );
 };
