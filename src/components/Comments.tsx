@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Comment } from "../core/domain/Comment";
 import { UserContext } from "../context/UserProvider";
 import { CurrentUser } from "../core/domain/User";
-import { addCommentUsecase } from "../factory";
+import { addCommentUsecase, getCommentsUsecase } from "../factory";
 
 type CommentsProps = {
   recipeId: string;
@@ -16,10 +16,20 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
 
   useEffect(() => {
     (async () => {
-      setComments([]);
       setLoggedUser((await userContext.getUser()) || {});
     })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (loggedUser) getComments();
+    })();
+  }, [loggedUser]);
+
+  const getComments = async () => {
+    const comments = await getCommentsUsecase.execute(recipeId, loggedUser);
+    setComments(comments);
+  };
 
   const addComment = async () => {
     const newComment: Comment = {
@@ -33,7 +43,7 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
       alert("Error to add comment!");
       return;
     }
-    setComments((c) => [...c, newComment]);
+    getComments();
     setCurrentComment("");
   };
 

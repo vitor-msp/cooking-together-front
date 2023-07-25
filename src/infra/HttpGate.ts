@@ -145,4 +145,14 @@ export class HttpGate implements IHttpGate {
         throw new Error("error to add comment");
       });
   }
+
+  async getComments(recipeId: string, user: CurrentUser): Promise<Comment[]> {
+    const comments = await this.api
+      .get<Comment[]>(`/recipes/${recipeId}/comments`, this.getAuthHeader(user))
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to get comments");
+      });
+    return comments;
+  }
 }
