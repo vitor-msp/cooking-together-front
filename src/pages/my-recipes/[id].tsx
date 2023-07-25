@@ -41,7 +41,12 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
       setCanEdit(true);
       return;
     }
-    setCurrentRecipe({ ...recipe });
+    setCurrentRecipe({
+      ...recipe,
+      directions: recipe?.directions?.map(({ description }) => {
+        return { description };
+      }),
+    });
   }, []);
 
   const saveRecipe = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -94,7 +99,7 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
 
   const updateDirections = (newDirections: Direction[]) => {
     setCurrentRecipe((r) => {
-      return { ...r, directions: newDirections };
+      return { ...r, directions: [...newDirections] };
     });
   };
 
@@ -184,6 +189,7 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
         <Directions
           directions={currentRecipe.directions ?? []}
           updateDirections={updateDirections}
+          canEdit={canEdit}
         />
         <div>
           <h4>ingredients</h4>

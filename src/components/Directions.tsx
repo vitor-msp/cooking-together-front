@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Direction } from "../core/domain/Recipe";
 
 export type DirectionsProps = {
   directions: Direction[];
   updateDirections: (newDirecionts: Direction[]) => void;
+  canEdit: boolean;
 };
 
 const Directions: React.FC<DirectionsProps> = ({
   directions,
   updateDirections,
+  canEdit,
 }) => {
   const addDirection = () => {
     updateDirections([...directions, { description: "" }]);
@@ -43,6 +45,7 @@ const Directions: React.FC<DirectionsProps> = ({
                 id={index.toString()}
                 value={description}
                 onChange={changeDirection}
+                disabled={!canEdit}
               />
               <button
                 type="button"
