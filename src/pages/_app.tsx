@@ -1,3 +1,4 @@
+import "../styles/globals.css";
 import React from "react";
 import { UserProvider } from "../context/UserProvider";
 import { AppProps } from "next/app";
