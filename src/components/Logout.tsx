@@ -10,7 +10,11 @@ const Logout = () => {
     if (success) router.push("/login");
   };
   return (
-    <button type="button" onClick={logout}>
+    <button
+      type="button"
+      onClick={logout}
+      className="hover:bg-white hover:text-red-600 w-max p-2"
+    >
       logout
     </button>
   );
