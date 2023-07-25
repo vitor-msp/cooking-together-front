@@ -5,9 +5,9 @@ import { IHttpGate } from "../gateways/IHttpGate";
 export class GetRecipesUsecase {
   constructor(private readonly recipesApi: IHttpGate) {}
 
-  async execute(user: CurrentUser): Promise<Recipe[]> {
+  async execute(user: CurrentUser, query?: string): Promise<Recipe[]> {
     try {
-      return await this.recipesApi.getRecipes(user);
+      return await this.recipesApi.getRecipes(user, query);
     } catch (error) {
       return [];
     }

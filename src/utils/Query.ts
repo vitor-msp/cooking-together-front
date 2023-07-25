@@ -11,7 +11,7 @@ export abstract class Query {
       totalTimeInMinutesTo,
       userId,
     } = state;
-    let query = "?";
+    let query = "";
     if (title) query += `title=${title}&`;
     if (servingsFrom) query += `servingsFrom=${servingsFrom}&`;
     if (servingsTo) query += `servingsTo=${servingsTo}&`;
@@ -21,6 +21,11 @@ export abstract class Query {
       query += `totalTimeInMinutesTo=${totalTimeInMinutesTo}&`;
     if (ingredients) query += `ingredients=${ingredients}&`;
     if (userId) query += `userId=${userId}&`;
+    return query;
+  }
+
+  static getQuery(url?: string): string {
+    const query = url?.split("?")[1] ?? "";
     return query;
   }
 }

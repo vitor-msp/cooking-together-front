@@ -51,7 +51,7 @@ const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
     event.preventDefault();
     event.stopPropagation();
     const query = Query.prepareQuery(currentSearch);
-    router.push(`/recipes${query}`);
+    router.push(`/recipes?${query}`);
   };
 
   return (
@@ -144,9 +144,10 @@ const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
 export default RecipesPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(context.req.url);
+  const query = Query.getQuery(context.req.url);
   const recipes = await getRecipesUsecase.execute(
-    Cookie.getUser(context.req.cookies)
+    Cookie.getUser(context.req.cookies),
+    query
   );
   return {
     props: {

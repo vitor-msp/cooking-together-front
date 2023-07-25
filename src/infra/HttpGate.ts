@@ -65,9 +65,9 @@ export class HttpGate implements IHttpGate {
     return { token, tokenType: type, userId };
   }
 
-  async getRecipes(user: CurrentUser): Promise<Recipe[]> {
+  async getRecipes(user: CurrentUser, query?: string): Promise<Recipe[]> {
     const recipes = await this.api
-      .get<Recipe[]>(`/recipes`, this.getAuthHeader(user))
+      .get<Recipe[]>(`/recipes?${query}`, this.getAuthHeader(user))
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to get recipes");
