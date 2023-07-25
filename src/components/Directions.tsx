@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Direction } from "../core/domain/Recipe";
 
 export type DirectionsProps = {
@@ -10,29 +10,22 @@ const Directions: React.FC<DirectionsProps> = ({
   directions,
   updateDirections,
 }) => {
-  const [currentDirections, setCurrentDirections] =
-    useState<Direction[]>(directions);
-
-  useEffect(() => {
-    updateDirections(currentDirections);
-  }, [currentDirections]);
-
   const addDirection = () => {
-    setCurrentDirections((d) => [...d, { description: "" }]);
+    updateDirections([...directions, { description: "" }]);
   };
 
   const changeDirection = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newDirections: Direction[] = Object.assign([], currentDirections);
+    const newDirections: Direction[] = Object.assign([], directions);
     const index = +event.target.id;
     newDirections[index].description = event.target.value;
-    setCurrentDirections([...newDirections]);
+    updateDirections(newDirections);
   };
 
   const deleteDirection = (indexToDelete: number) => {
-    const newDirections = currentDirections.filter(
+    const newDirections = directions.filter(
       (_, index) => index !== indexToDelete
     );
-    setCurrentDirections(() => [...newDirections]);
+    updateDirections(newDirections);
   };
 
   return (
@@ -47,12 +40,16 @@ const Directions: React.FC<DirectionsProps> = ({
             <li key={index}>
               <input
                 type="text"
-                name=""
                 id={index.toString()}
                 value={description}
                 onChange={changeDirection}
               />
-              <button type="button" onClick={() => deleteDirection(index)}>
+              <button
+                type="button"
+                onClick={() => {
+                  deleteDirection(index);
+                }}
+              >
                 x
               </button>
             </li>
