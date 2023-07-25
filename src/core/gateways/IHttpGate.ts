@@ -1,4 +1,5 @@
 import { ChangePassword } from "../domain/ChangePassword";
+import { Comment } from "../domain/Comment";
 import { Recipe } from "../domain/Recipe";
 import { CurrentUser } from "../domain/User";
 
@@ -17,4 +18,5 @@ export interface IHttpGate {
   addRecipe(recipe: Recipe, user: CurrentUser): Promise<void>;
   editRecipe(recipe: Recipe, user: CurrentUser): Promise<void>;
   deleteRecipe(recipe: Recipe, user: CurrentUser): Promise<void>;
+  addComment(comment: Comment, user: CurrentUser): Promise<void>;
 }

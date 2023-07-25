@@ -3,6 +3,7 @@ import { CurrentUser } from "../core/domain/User";
 import { IHttpGate } from "../core/gateways/IHttpGate";
 import { Recipe } from "../core/domain/Recipe";
 import { ChangePassword } from "../core/domain/ChangePassword";
+import { Comment } from "../core/domain/Comment";
 
 export class HttpGate implements IHttpGate {
   constructor(private readonly api: AxiosInstance) {}
@@ -129,6 +130,19 @@ export class HttpGate implements IHttpGate {
       .then((res) => res.data)
       .catch(() => {
         throw new Error("error to delete recipe");
+      });
+  }
+
+  async addComment(comment: Comment, user: CurrentUser): Promise<void> {
+    await this.api
+      .post(
+        `/recipes/${comment.recipeId}/comments`,
+        comment,
+        this.getAuthHeader(user)
+      )
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to add comment");
       });
   }
 }

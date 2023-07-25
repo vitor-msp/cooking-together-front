@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GetCommentsMock } from "../mocks/comments";
 import { Comment } from "../core/domain/Comment";
 import { UserContext } from "../context/UserProvider";
+import { CurrentUser } from "../core/domain/User";
+import { addCommentUsecase } from "../factory";
 
 type CommentsProps = {
   recipeId: string;
@@ -9,30 +10,36 @@ type CommentsProps = {
 
 const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
+  const [loggedUser, setLoggedUser] = useState<CurrentUser>({});
   const [currentComment, setCurrentComment] = useState<string>("");
-
   const userContext = useContext(UserContext);
 
   useEffect(() => {
-    setComments(GetCommentsMock.get());
+    (async () => {
+      setComments([]);
+      setLoggedUser((await userContext.getUser()) || {});
+    })();
   }, []);
 
-  const addComment = () => {
+  const addComment = async () => {
     const newComment: Comment = {
       text: currentComment,
       createdAt: new Date().toISOString(),
       recipeId,
-      user: { id: userContext.user?.id, name: userContext.user?.name },
+      user: { id: loggedUser?.id, name: loggedUser?.name },
     };
-    GetCommentsMock.add(newComment);
-    setComments(() => [...GetCommentsMock.get()]);
+    const success = await addCommentUsecase.execute(newComment, loggedUser);
+    if (!success) {
+      alert("Error to add comment!");
+      return;
+    }
+    setComments((c) => [...c, newComment]);
     setCurrentComment("");
   };
 
   const deleteComment = (id: string) => {
     const newComments = comments.filter((c) => c.id !== id);
-    GetCommentsMock.set(newComments);
-    setComments(() => [...GetCommentsMock.get()]);
+    setComments(() => [...newComments]);
   };
 
   return (
@@ -44,7 +51,7 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
             <li key={id}>
               <span>{`${createdAt} - ${text}`}</span>
               <span>{`${user?.id} - ${user?.name}`}</span>
-              {user?.id === userContext.user?.id && (
+              {user?.id === loggedUser?.id && (
                 <button type="button" onClick={() => deleteComment(id!)}>
                   X
                 </button>
@@ -54,8 +61,6 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
         })}
       </ul>
       <div>
-        <span>{userContext.user?.name}</span>
-        <br />
         <input
           type="text"
           name=""
