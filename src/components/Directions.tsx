@@ -47,14 +47,16 @@ const Directions: React.FC<DirectionsProps> = ({
                 onChange={changeDirection}
                 disabled={!canEdit}
               />
-              <button
-                type="button"
-                onClick={() => {
-                  deleteDirection(index);
-                }}
-              >
-                x
-              </button>
+              {canEdit && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    deleteDirection(index);
+                  }}
+                >
+                  x
+                </button>
+              )}
             </li>
           );
         })}
