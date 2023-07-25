@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import Comments from "@/src/components/Comments";
-import { Direction, Recipe } from "@/src/core/domain/Recipe";
+import { Direction, Ingredient, Recipe } from "@/src/core/domain/Recipe";
 import { useRouter } from "next/router";
 import {
   addRecipeUsecase,
@@ -14,6 +14,7 @@ import { Cookie } from "@/src/utils/Cookie";
 import { Params } from "@/src/utils/Params";
 import { UserContext } from "@/src/context/UserProvider";
 import Directions from "@/src/components/Directions";
+import Ingredients from "@/src/components/Ingredients";
 
 type MyRecipePageProps = {
   recipe: Recipe | null;
@@ -100,6 +101,12 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
   const updateDirections = (newDirections: Direction[]) => {
     setCurrentRecipe((r) => {
       return { ...r, directions: [...newDirections] };
+    });
+  };
+
+  const updateIngredients = (newIngredients: Ingredient[]) => {
+    setCurrentRecipe((r) => {
+      return { ...r, ingredients: [...newIngredients] };
     });
   };
 
@@ -191,20 +198,11 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
           updateDirections={updateDirections}
           canEdit={canEdit}
         />
-        <div>
-          <h4>ingredients</h4>
-          <ul>
-            {currentRecipe.ingredients?.map(
-              ({ product, quantity, unitOfMeasurement }) => {
-                return (
-                  <li
-                    key={Math.random() * 99}
-                  >{`${product} - ${quantity} - ${unitOfMeasurement}`}</li>
-                );
-              }
-            )}
-          </ul>
-        </div>
+        <Ingredients
+          ingredients={currentRecipe.ingredients ?? []}
+          updateIngredients={updateIngredients}
+          canEdit={canEdit}
+        />
         {canEdit ? (
           <>
             <button type="button" onClick={cancelEdit}>

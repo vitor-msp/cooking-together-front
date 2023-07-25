@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Direction } from "../core/domain/Recipe";
 
 export type DirectionsProps = {
   directions: Direction[];
-  updateDirections: (newDirecionts: Direction[]) => void;
+  updateDirections: (newDirections: Direction[]) => void;
   canEdit: boolean;
 };
 
