@@ -20,4 +20,5 @@ export interface IHttpGate {
   deleteRecipe(recipe: Recipe, user: CurrentUser): Promise<void>;
   addComment(comment: Comment, user: CurrentUser): Promise<void>;
   getComments(recipeId: string, user: CurrentUser): Promise<Comment[]>;
+  deleteComment(comment: Comment, user: CurrentUser): Promise<void>;
 }

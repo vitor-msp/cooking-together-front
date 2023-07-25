@@ -155,4 +155,16 @@ export class HttpGate implements IHttpGate {
       });
     return comments;
   }
+
+  async deleteComment(comment: Comment, user: CurrentUser): Promise<void> {
+    await this.api
+      .delete(
+        `/recipes/${comment.recipeId}/comments/${comment.id}`,
+        this.getAuthHeader(user)
+      )
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to delete comment");
+      });
+  }
 }
