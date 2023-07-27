@@ -43,7 +43,7 @@ const LoginPage: NextPage = () => {
       <h1 className="text-3xl text-center mb-3 text-orange-600">login</h1>
       <form action="" onSubmit={login} className="flex flex-col items-center">
         <fieldset className="flex flex-col justify-evenly items-center border border-orange-500 p-3 mb-1 rounded-md">
-          <div className="grid grid-cols-6 my-2">
+          <div className="grid grid-cols-6 my-2 items-center">
             <label htmlFor="email" className="col-span-2 text-right pr-3">
               email
             </label>
@@ -51,12 +51,12 @@ const LoginPage: NextPage = () => {
               type="email"
               name="email"
               id="email"
-              className="col-span-4 rounded-md hover:bg-orange-100"
+              className="col-span-4 rounded-md hover:bg-orange-100 p-1"
               onChange={onChangeField}
               value={currentUser.email}
             />
           </div>
-          <div className="grid grid-cols-6">
+          <div className="grid grid-cols-6 items-center">
             <label htmlFor="password" className="col-span-2 text-right pr-3">
               password
             </label>
@@ -64,7 +64,7 @@ const LoginPage: NextPage = () => {
               type="password"
               name="password"
               id="password"
-              className="col-span-4 rounded-md hover:bg-orange-100"
+              className="col-span-4 rounded-md hover:bg-orange-100 p-1"
               onChange={onChangeField}
               value={currentUser.password}
             />
