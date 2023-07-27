@@ -39,30 +39,43 @@ const LoginPage: NextPage = () => {
   };
 
   return (
-    <div>
-      <h1>login</h1>
-      <form action="" onSubmit={login}>
-        <label htmlFor="">
-          email
-          <input
-            type="email"
-            name="email"
-            onChange={onChangeField}
-            value={currentUser.email}
-          />
-        </label>
-        <br />
-        <label htmlFor="">
-          password
-          <input
-            type="password"
-            name="password"
-            onChange={onChangeField}
-            value={currentUser.password}
-          />
-        </label>
-        <br />
-        <button type="submit">login</button>
+    <div className="flex flex-col justify-center items-center">
+      <h1 className="text-3xl text-center mb-3 text-orange-600">login</h1>
+      <form action="" onSubmit={login} className="flex flex-col items-center">
+        <fieldset className="flex flex-col justify-evenly items-center border border-orange-500 p-3 mb-1 rounded-md">
+          <div className="grid grid-cols-6 my-2">
+            <label htmlFor="email" className="col-span-2 text-right pr-3">
+              email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="col-span-4 rounded-md hover:bg-orange-100"
+              onChange={onChangeField}
+              value={currentUser.email}
+            />
+          </div>
+          <div className="grid grid-cols-6">
+            <label htmlFor="password" className="col-span-2 text-right pr-3">
+              password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              className="col-span-4 rounded-md hover:bg-orange-100"
+              onChange={onChangeField}
+              value={currentUser.password}
+            />
+          </div>
+        </fieldset>
+        <button
+          type="submit"
+          className="w-full bg-orange-500 text-gray-100 rounded-md p-1 text-xl hover:text-orange-500 hover:bg-orange-200 transition-all"
+        >
+          login
+        </button>
       </form>
     </div>
   );

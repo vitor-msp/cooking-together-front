@@ -7,7 +7,7 @@ const Navbar = () => {
   const isLoggedIn = useContext(UserContext).isLoggedIn;
 
   return (
-    <>
+    <div className="mb-auto">
       {isLoggedIn ? (
         <nav className="flex justify-evenly w-screen text-gray-100 font-bold bg-orange-500">
           <Link
@@ -46,8 +46,7 @@ const Navbar = () => {
           </Link>
         </nav>
       )}
-      <br />
-    </>
+    </div>
   );
 };
 
