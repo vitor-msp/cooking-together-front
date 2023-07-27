@@ -9,38 +9,38 @@ const Navbar = () => {
   return (
     <>
       {isLoggedIn ? (
-        <nav className="flex justify-evenly w-screen text-white font-bold bg-red-600">
+        <nav className="flex justify-evenly w-screen text-gray-100 font-bold bg-orange-500">
           <Link
             href={"/recipes"}
-            className="hover:bg-white hover:text-red-600 w-max p-2"
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2"
           >
             recipes
           </Link>
           <Link
             href={"/my-recipes"}
-            className="hover:bg-white hover:text-red-600 w-max p-2"
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2"
           >
             my-recipes
           </Link>
           <Link
             href={"/my-account"}
-            className="hover:bg-white hover:text-red-600 w-max p-2"
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2"
           >
             my-account
           </Link>
           <Logout />
         </nav>
       ) : (
-        <nav className="flex justify-evenly w-screen text-white font-bold bg-red-600">
+        <nav className="flex justify-evenly w-screen text-gray-100 font-bold bg-orange-500">
           <Link
             href={"/sign-up"}
-            className="hover:bg-white hover:text-red-600 w-max p-2"
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2"
           >
             sign up
           </Link>
           <Link
             href={"/login"}
-            className="hover:bg-white hover:text-red-600 w-max p-2"
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2"
           >
             login
           </Link>

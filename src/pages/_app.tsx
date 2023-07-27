@@ -7,8 +7,10 @@ import Navbar from "../components/Navbar";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <UserProvider>
-      <Navbar />
-      <Component {...pageProps} />
+      <div className="h-screen">
+        <Navbar />
+        <Component {...pageProps} />
+      </div>
     </UserProvider>
   );
 };

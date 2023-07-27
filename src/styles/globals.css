@@ -22,3 +22,9 @@ body {
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 } */
+
+@layer {
+  :root {
+    @apply text-gray-950 bg-gray-100
+  }
+}
