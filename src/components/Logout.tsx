@@ -13,7 +13,7 @@ const Logout = () => {
     <button
       type="button"
       onClick={logout}
-      className="hover:bg-white hover:text-red-600 w-max p-2"
+      className="hover:bg-gray-100 hover:text-orange-500 w-max p-2 text-center"
     >
       logout
     </button>

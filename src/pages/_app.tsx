@@ -7,9 +7,9 @@ import Navbar from "../components/Navbar";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <UserProvider>
-      <div className="h-screen flex flex-col items-center justify-center">
+      <div className="min-h-screen flex flex-col items-center justify-between">
         <Navbar />
-        <div className="mb-auto">
+        <div className="grow flex justify-center items-center">
           <Component {...pageProps} />
         </div>
       </div>

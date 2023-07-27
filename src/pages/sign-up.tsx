@@ -38,7 +38,7 @@ const SignUpPage: NextPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center p-2">
       <h1 className="text-3xl text-center mb-3 text-orange-600">register</h1>
       <form action="" onSubmit={signUp} className="flex flex-col items-center">
         <fieldset className="flex flex-col justify-evenly items-center border border-orange-500 p-3 mb-1 rounded-md">
