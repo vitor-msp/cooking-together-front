@@ -112,12 +112,42 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
 
   return (
     <div>
-      <Link href={"/my-recipes"}>my recipes</Link>
-      <button type="button" onClick={deleteRecipe}>
-        delete
-      </button>
+      {!isAdd && (
+        <button type="button" onClick={deleteRecipe}>
+          delete
+        </button>
+      )}
       <div className="default-form">
+        <h1 className="text-3xl mb-3">my recipe</h1>
         <form action="" onSubmit={saveRecipe}>
+          <div className="mb-1 w-full flex gap-2">
+            {!isAdd && canEdit && (
+              <button
+                type="button"
+                onClick={cancelEdit}
+                className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+              >
+                Cancel
+              </button>
+            )}
+            {!isAdd && !canEdit && (
+              <button
+                type="button"
+                onClick={() => setCanEdit(true)}
+                className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+              >
+                Edit
+              </button>
+            )}
+            {(isAdd || canEdit) && (
+              <button
+                type="submit"
+                className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+              >
+                Save
+              </button>
+            )}
+          </div>
           <div className="flex flex-col md:flex-row gap-2">
             <fieldset className="border border-orange-500 mb-1 p-3">
               {/* <div>
@@ -222,18 +252,6 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
             updateIngredients={updateIngredients}
             canEdit={canEdit}
           />
-          {canEdit ? (
-            <>
-              <button type="button" onClick={cancelEdit}>
-                Cancel
-              </button>
-              <button type="submit">Save</button>
-            </>
-          ) : (
-            <button type="button" onClick={() => setCanEdit(true)}>
-              Edit
-            </button>
-          )}
         </form>
       </div>
       <Comments recipeId={currentRecipe.id ?? ""} />
