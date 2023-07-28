@@ -31,36 +31,50 @@ const Directions: React.FC<DirectionsProps> = ({
   };
 
   return (
-    <div>
-      <h4>directions</h4>
-      <button type="button" onClick={addDirection}>
-        +
-      </button>
-      <ul>
-        {directions.map(({ description }, index) => {
-          return (
-            <li key={index}>
-              <input
-                type="text"
-                id={index.toString()}
-                value={description}
-                onChange={changeDirection}
-                disabled={!canEdit}
-              />
-              {canEdit && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    deleteDirection(index);
-                  }}
-                >
-                  x
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+    <div className="flex flex-wrap w-full">
+      <div className="w-full md:w-3/12">
+        <div className="flex gap-2 justify-center md:justify-end items-start mt-1 pr-2 py-1 border border-orange-500 rounded-md">
+          <h4 className="text-xl text-center text-orange-600 mt-1">
+            directions
+          </h4>
+          <button
+            type="button"
+            onClick={addDirection}
+            className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100 w-10 rounded-md transition-all"
+          >
+            +
+          </button>
+        </div>
+      </div>
+      <div className="w-full md:w-9/12 p-1">
+        <ul className="p-2 border border-orange-500 rounded-md">
+          {directions.map(({ description }, index) => {
+            return (
+              <li key={index} className="flex justify-between my-2">
+                <input
+                  type="text"
+                  id={index.toString()}
+                  value={description}
+                  onChange={changeDirection}
+                  disabled={!canEdit}
+                  className="grow p-1 rounded-md hover:bg-orange-100 mr-2"
+                />
+                {canEdit && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      deleteDirection(index);
+                    }}
+                    className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100 w-10 rounded-md transition-all"
+                  >
+                    x
+                  </button>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };
