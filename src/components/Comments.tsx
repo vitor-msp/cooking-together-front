@@ -35,7 +35,9 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
     setComments(comments);
   };
 
-  const addComment = async () => {
+  const addComment = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     const newComment: Comment = {
       text: currentComment,
       createdAt: new Date().toISOString(),
@@ -62,35 +64,43 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
   };
 
   return (
-    <div>
-      <h4>Comments</h4>
-      <ul>
-        {comments?.map((comment) => {
-          const { id, createdAt, text, user } = comment;
-          return (
-            <li key={id}>
-              <span>{`${createdAt} - ${text}`}</span>
-              <span>{`${user?.id} - ${user?.name}`}</span>
-              {user?.id === loggedUser?.id && (
-                <button type="button" onClick={() => deleteComment(comment)}>
-                  X
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-      <div>
-        <input
-          type="text"
-          name=""
-          id=""
-          value={currentComment}
-          onChange={(e) => setCurrentComment(e.target.value)}
-        />
-        <button type="button" onClick={addComment}>
-          add comment
-        </button>
+    <div className="mb-6">
+      <h4 className="text-xl text-left text-orange-600 mt-1">Comments</h4>
+      <div className="my-4">
+        <ul>
+          {comments?.map((comment) => {
+            const { id, createdAt, text, user } = comment;
+            return (
+              <li key={id} className="my-2 flex justify-between">
+                <div>
+                  {/* <span>{createdAt}</span> */}
+                  <span className="text-orange-500">{`${user?.name}:  `}</span>
+                  <span>{text}</span>
+                </div>
+                {user?.id === loggedUser?.id && (
+                  <button
+                    type="button"
+                    onClick={() => deleteComment(comment)}
+                    className="bg-orange-500 p-1 text-sm hover:text-orange-500 hover:bg-orange-200 text-gray-100 w-8 rounded-md transition-all"
+                  >
+                    X
+                  </button>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className="border rounded-md border-orange-500">
+        <form action="" onSubmit={addComment}>
+          <input
+            type="text"
+            value={currentComment}
+            onChange={(e) => setCurrentComment(e.target.value)}
+            className="p-1 rounded-md hover:bg-orange-100 w-full"
+            placeholder="comment..."
+          />
+        </form>
       </div>
     </div>
   );

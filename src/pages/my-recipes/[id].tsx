@@ -254,7 +254,7 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
           />
         </form>
       </div>
-      <Comments recipeId={currentRecipe.id ?? ""} />
+      {!isAdd && <Comments recipeId={currentRecipe.id ?? ""} />}
     </div>
   );
 };
