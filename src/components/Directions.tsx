@@ -58,6 +58,7 @@ const Directions: React.FC<DirectionsProps> = ({
                   onChange={changeDirection}
                   disabled={!canEdit}
                   className="grow p-1 rounded-md hover:bg-orange-100 mr-2"
+                  placeholder="description..."
                 />
                 {canEdit && (
                   <button
