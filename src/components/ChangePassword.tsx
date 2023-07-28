@@ -45,29 +45,38 @@ const ChangePassword: React.FC = ({}) => {
   };
 
   return (
-    <div>
+    <div className="default-form">
       <form action="" onSubmit={savePassword}>
-        <label htmlFor="">
-          old password
-          <input
-            type="password"
-            name="oldPassword"
-            onChange={onChangeField}
-            value={currentPassword.oldPassword}
-          />
-        </label>
-        <br />
-        <label htmlFor="">
-          new password
-          <input
-            type="password"
-            name="newPassword"
-            onChange={onChangeField}
-            value={currentPassword.newPassword}
-          />
-        </label>
-        <br />
-        <button type="submit">save</button>
+        <fieldset className="border border-orange-500 mb-1 p-3">
+          <div>
+            <label htmlFor="oldPassword">old password</label>
+            <input
+              type="password"
+              name="oldPassword"
+              id="oldPassword"
+              className="p-1"
+              onChange={onChangeField}
+              value={currentPassword.oldPassword}
+            />
+          </div>
+          <div>
+            <label htmlFor="newPassword">new password</label>
+            <input
+              type="password"
+              name="newPassword"
+              id="newPassword"
+              className="p-1"
+              onChange={onChangeField}
+              value={currentPassword.newPassword}
+            />
+          </div>
+        </fieldset>
+        <button
+          type="submit"
+          className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+        >
+          save
+        </button>
       </form>
     </div>
   );

@@ -47,46 +47,62 @@ const MyAccount: NextPage<MyAccountProps> = ({ userData }) => {
   };
 
   return (
-    <div>
-      <h1>my account</h1>
+    <div className="default-form">
+      <h1 className="text-3xl mb-3">my account</h1>
       <form action="" onSubmit={saveUserData}>
-        <label htmlFor="">
-          name
-          <input
-            type="text"
-            name="name"
-            onChange={onChangeField}
-            value={currentUserData.name}
-            disabled={!canEdit}
-          />
-        </label>
-        <br />
-        <label htmlFor="">
-          email
-          <input
-            type="email"
-            name="email"
-            value={currentUserData.email}
-            disabled={true}
-          />
-        </label>
-        <br />
+        <fieldset className="border border-orange-500 mb-1 p-3">
+          <div>
+            <label htmlFor="name">name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="p-1"
+              onChange={onChangeField}
+              value={currentUserData.name}
+              disabled={!canEdit}
+            />
+          </div>
+          <div>
+            <label htmlFor="email">email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="p-1"
+              value={currentUserData.email}
+              disabled={true}
+            />
+          </div>
+        </fieldset>
         {canEdit ? (
-          <>
-            <button type="button" onClick={cancelEdit}>
+          <div className="flex justify-between items-center w-full gap-2">
+            <button
+              type="button"
+              onClick={cancelEdit}
+              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+            >
               cancel
             </button>
-            <button type="submit">save</button>
-          </>
+            <button
+              type="submit"
+              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+            >
+              save
+            </button>
+          </div>
         ) : (
           <>
-            <button type="button" onClick={() => setCanEdit(true)}>
+            <button
+              type="button"
+              onClick={() => setCanEdit(true)}
+              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+            >
               edit
             </button>
           </>
         )}
       </form>
-      <hr />
       <ChangePassword />
     </div>
   );
