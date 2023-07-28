@@ -111,9 +111,13 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
   };
 
   return (
-    <div>
+    <div className="relative">
       {!isAdd && (
-        <button type="button" onClick={deleteRecipe}>
+        <button
+          type="button"
+          onClick={deleteRecipe}
+          className="absolute right-2 top-2 mt-1 font-bold bg-red-600 p-2 text-sm hover:bg-red-500 text-gray-100 rounded-md transition-all"
+        >
           delete
         </button>
       )}
