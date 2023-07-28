@@ -40,7 +40,7 @@ body {
   .default-form fieldset {
     @apply flex flex-col justify-evenly items-center rounded-md
   }
-  .default-form input {
+  .default-form input,.default-form textarea {
     @apply col-span-4 rounded-md hover:bg-orange-100
   }
   .default-form label {
