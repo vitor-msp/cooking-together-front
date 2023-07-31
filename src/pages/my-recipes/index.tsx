@@ -14,7 +14,7 @@ const MyRecipesPage: NextPage<MyRecipesPageProps> = ({ recipes }) => {
   return (
     <div className="flex flex-col items-center justify-start self-start w-screen">
       <h1 className="text-center text-orange-600 text-3xl mb-3">
-        MyRecipesPage
+        My Recipes
       </h1>
       <button
         type="button"
