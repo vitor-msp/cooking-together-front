@@ -6,6 +6,7 @@ import { getRecipesUsecase } from "@/src/factory";
 import { Cookie } from "@/src/utils/Cookie";
 import { Query } from "@/src/utils/Query";
 import { useRouter } from "next/router";
+import Recipes from "@/src/components/Recipes";
 
 type RecipesPageProps = {
   recipes: Recipe[];
@@ -142,21 +143,7 @@ const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
           </button>
         </form>
       </div>
-      <div className="">
-        <ul>
-          {recipes?.map(
-            ({ id, servings, title, totalTimeInMinutes, updatedAt }) => {
-              return (
-                <li key={id}>
-                  <Link href={`/recipes/${id}`}>
-                    {`${servings} ${title} ${totalTimeInMinutes} ${updatedAt}`}
-                  </Link>
-                </li>
-              );
-            }
-          )}
-        </ul>
-      </div>
+      <Recipes recipes={recipes} />
     </div>
   );
 };

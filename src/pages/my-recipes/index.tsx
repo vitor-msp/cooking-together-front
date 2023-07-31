@@ -4,6 +4,7 @@ import { Recipe } from "@/src/core/domain/Recipe";
 import Link from "next/link";
 import { getMyRecipesUsecase } from "@/src/factory";
 import { Cookie } from "@/src/utils/Cookie";
+import Recipes from "@/src/components/Recipes";
 
 type MyRecipesPageProps = {
   recipes: Recipe[];
@@ -16,20 +17,7 @@ const MyRecipesPage: NextPage<MyRecipesPageProps> = ({ recipes }) => {
       <button type="button">
         <Link href={`/my-recipes/new`}>add new recipe</Link>
       </button>
-      <ul>
-        {recipes?.map(
-          ({ id, servings, title, totalTimeInMinutes, updatedAt }) => {
-            return (
-              <li key={id}>
-                {/* passHref */}
-                <Link href={`/my-recipes/${id}`}>
-                  {`${servings} ${title} ${totalTimeInMinutes} ${updatedAt}`}
-                </Link>
-              </li>
-            );
-          }
-        )}
-      </ul>
+      <Recipes recipes={recipes} />
     </div>
   );
 };
