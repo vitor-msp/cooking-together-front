@@ -8,7 +8,7 @@ type RecipesProps = {
 
 const Recipes: React.FC<RecipesProps> = ({ recipes }) => {
   return (
-    <div className="">
+    <div className="mt-3 border border-orange-400">
       <ul>
         {recipes?.map(
           ({ id, servings, title, totalTimeInMinutes, updatedAt }) => {
