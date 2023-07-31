@@ -143,7 +143,7 @@ const RecipesPage: NextPage<RecipesPageProps> = ({ recipes }) => {
           </button>
         </form>
       </div>
-      <Recipes recipes={recipes} />
+      <Recipes recipes={recipes} publicView={true} />
     </div>
   );
 };

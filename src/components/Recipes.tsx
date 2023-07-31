@@ -4,9 +4,10 @@ import Link from "next/link";
 
 type RecipesProps = {
   recipes: Recipe[];
+  publicView: boolean;
 };
 
-const Recipes: React.FC<RecipesProps> = ({ recipes }) => {
+const Recipes: React.FC<RecipesProps> = ({ recipes, publicView }) => {
   return (
     <div className="mt-3 w-10/12">
       <ul>
@@ -17,7 +18,7 @@ const Recipes: React.FC<RecipesProps> = ({ recipes }) => {
                 key={id}
                 className="my-2 p-3 rounded-md hover:bg-orange-200 w-full"
               >
-                <Link href={`/recipes/${id}`}>
+                <Link href={`/${publicView ? "recipes" : "my-recipes"}/${id}`}>
                   <div className="flex flex-col md:flex-row md:justify-between">
                     <div>
                       <span className="text-3xl text-center text-orange-600">
