@@ -1,4 +1,4 @@
-import { SearchRecipesType } from "../pages/recipes";
+import { SearchRecipesType } from "../components/SearchRecipes";
 
 export abstract class Query {
   static prepareQuery(state: SearchRecipesType): string {
