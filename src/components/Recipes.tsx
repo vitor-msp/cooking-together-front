@@ -13,6 +13,9 @@ const Recipes: React.FC<RecipesProps> = ({ recipes, publicView }) => {
       <ul>
         {recipes?.map(
           ({ id, servings, title, totalTimeInMinutes, updatedAt }) => {
+            const formattedUpdatedAt = updatedAt
+              ? new Date(updatedAt).toDateString()
+              : "-";
             return (
               <li
                 key={id}
@@ -28,7 +31,7 @@ const Recipes: React.FC<RecipesProps> = ({ recipes, publicView }) => {
                     <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-between sm:gap-2">
                       <div>
                         <strong className="mr-2">updated at:</strong>
-                        <span>{updatedAt}</span>
+                        <span>{formattedUpdatedAt}</span>
                       </div>
                       <div>
                         <strong className="mr-2">servings:</strong>

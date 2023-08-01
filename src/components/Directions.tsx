@@ -46,11 +46,14 @@ const Directions: React.FC<DirectionsProps> = ({
           </button>
         </div>
       </div>
-      <div className="w-full md:w-9/12 p-1">
+      <div className="w-full md:w-9/12 pt-2 md:pt-1 md:pl-2 pb-1">
         <ul className="p-2 border border-orange-500 rounded-md">
           {directions.map(({ description }, index) => {
             return (
-              <li key={index} className="flex justify-between my-2">
+              <li
+                key={index}
+                className="flex flex-col sm:flex-row justify-between my-2"
+              >
                 <input
                   type="text"
                   id={index.toString()}
@@ -66,7 +69,7 @@ const Directions: React.FC<DirectionsProps> = ({
                     onClick={() => {
                       deleteDirection(index);
                     }}
-                    className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100 w-10 rounded-md transition-all"
+                    className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100 w-10 rounded-md transition-all mt-1 sm:mt-0 self-end"
                   >
                     x
                   </button>

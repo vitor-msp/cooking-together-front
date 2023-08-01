@@ -27,33 +27,41 @@ const RecipePage: NextPage<RecipePageProps> = ({ recipe }) => {
 
   let directionsCounter = 1;
   let ingredientesCounter = 1;
+  const formattedUpdatedAt = updatedAt
+    ? new Date(updatedAt).toDateString().toLowerCase()
+    : "-";
+  const formattedCreatedAt = createdAt
+    ? new Date(createdAt).toDateString().toLowerCase()
+    : "-";
 
   return (
     <div className="w-screen">
       <div className="mx-auto w-10/12 pt-4">
         <h1 className="text-center text-orange-600 text-3xl">{title}</h1>
-        <div className="flex justify-around">
-          <div>
-            <strong>servings:</strong>
-            <span className="ml-2">{servings}</span>
+        <div className="flex flex-col sm:flex-row justify-between">
+          <div className="flex flex-col items-start">
+            <div>
+              <strong>servings:</strong>
+              <span className="ml-2">{servings}</span>
+            </div>
+            <div>
+              <strong>done in:</strong>
+              <span className="ml-2">{`${totalTimeInMinutes} min`}</span>
+            </div>
           </div>
-          <div>
-            <strong>done in:</strong>
-            <span className="ml-2">{`${totalTimeInMinutes} min`}</span>
-          </div>
-        </div>
-        <div className="text-center">
-          <strong>posted by:</strong>
-          <span className="ml-2">{user?.name}</span>
-        </div>
-        <div className="flex justify-around">
-          <div>
-            <strong>updated at:</strong>
-            <span className="ml-2">{updatedAt}</span>
-          </div>
-          <div>
-            <strong>created at:</strong>
-            <span className="ml-2">{createdAt}</span>
+          <div className="flex flex-col items-end">
+            <div>
+              <strong>posted by:</strong>
+              <span className="ml-2">{user?.name}</span>
+            </div>
+            <div>
+              <strong>updated at:</strong>
+              <span className="ml-2">{formattedUpdatedAt}</span>
+            </div>
+            <div>
+              <strong>created at:</strong>
+              <span className="ml-2">{formattedCreatedAt}</span>
+            </div>
           </div>
         </div>
         <div className="p-2">

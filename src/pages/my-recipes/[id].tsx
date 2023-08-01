@@ -154,18 +154,6 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <fieldset className="border border-orange-500 mb-1 p-3">
-              {/* <div>
-              <label htmlFor="id">recipe id</label>
-              <input
-                onChange={onChangeField}
-                type="text"
-                name="id"
-                id="id"
-                className="p-1"
-                value={currentRecipe.id}
-                disabled={!canEdit}
-              />
-            </div> */}
               <div>
                 <label htmlFor="title">title</label>
                 <input
@@ -242,6 +230,7 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
                   disabled={!canEdit}
                   onChange={onChangeField}
                   value={currentRecipe.description}
+                  className="p-1"
                 />
               </div>
             </fieldset>

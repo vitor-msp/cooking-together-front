@@ -70,11 +70,14 @@ const Comments: React.FC<CommentsProps> = ({ recipeId }) => {
         <ul>
           {comments?.map((comment) => {
             const { id, createdAt, text, user } = comment;
+            const formattedCreatedAt = createdAt
+              ? new Date(createdAt).toDateString().toLowerCase()
+              : "-";
             return (
               <li key={id} className="my-2 flex justify-between">
                 <div>
-                  {/* <span>{createdAt}</span> */}
-                  <span className="text-orange-500">{`${user?.name}:  `}</span>
+                  <span>{formattedCreatedAt}</span>
+                  <span className="text-orange-500 ml-2 mr-1">{`${user?.name}:`}</span>
                   <span>{text}</span>
                 </div>
                 {user?.id === loggedUser?.id && (

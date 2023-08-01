@@ -55,7 +55,7 @@ const Ingredients: React.FC<IngredientsProps> = ({
           </button>
         </div>
       </div>
-      <div className="w-full md:w-9/12 p-1">
+      <div className="w-full md:w-9/12 pt-2 md:pt-1 md:pl-2 pb-1">
         <ul className="p-2 border border-orange-500 rounded-md">
           {ingredients.map(
             ({ product, quantity, unitOfMeasurement }, index) => {

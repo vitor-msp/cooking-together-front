@@ -13,10 +13,10 @@ type MyRecipesPageProps = {
 const MyRecipesPage: NextPage<MyRecipesPageProps> = ({ recipes }) => {
   return (
     <div className="flex flex-col items-center justify-start self-start w-screen">
-      <h1 className="text-center text-orange-600 text-3xl mb-3">My Recipes</h1>
+      <h1 className="text-center text-orange-600 text-3xl my-3">My Recipes</h1>
       <button
         type="button"
-        className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100 rounded-md transition-all"
+        className="bg-orange-500 py-1 px-2 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100 rounded-md transition-all"
       >
         <Link href={`/my-recipes/new`}>+ new recipe</Link>
       </button>
