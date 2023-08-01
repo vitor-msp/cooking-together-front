@@ -6,7 +6,8 @@ export class GetLoggedUserUsecase {
 
   async execute(): Promise<CurrentUser | null> {
     try {
-      return await this.userDataRepo.get();
+      const userData = await this.userDataRepo.get();
+      return userData;
     } catch (error) {
       return null;
     }

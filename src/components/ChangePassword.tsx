@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
+import { useRouter } from "next/router";
 import { changePasswordUsecase, logoutUsecase } from "../factory";
 import { UserContext } from "../context/UserProvider";
 import { ChangePassword } from "../core/domain/ChangePassword";
-import { useRouter } from "next/router";
 
 const defualtChangePassword: ChangePassword = {
   oldPassword: "",

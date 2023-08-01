@@ -1,6 +1,6 @@
 import React from "react";
-import { Recipe } from "../core/domain/Recipe";
 import Link from "next/link";
+import { Recipe } from "../core/domain/Recipe";
 
 type RecipesProps = {
   recipes: Recipe[];
@@ -14,7 +14,7 @@ const Recipes: React.FC<RecipesProps> = ({ recipes, publicView }) => {
         {recipes?.map(
           ({ id, servings, title, totalTimeInMinutes, updatedAt }) => {
             const formattedUpdatedAt = updatedAt
-              ? new Date(updatedAt).toDateString()
+              ? new Date(updatedAt).toDateString().toLowerCase()
               : "-";
             return (
               <li

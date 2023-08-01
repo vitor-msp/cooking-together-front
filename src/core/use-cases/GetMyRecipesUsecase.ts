@@ -7,7 +7,8 @@ export class GetMyRecipesUsecase {
 
   async execute(user: CurrentUser): Promise<Recipe[]> {
     try {
-      return await this.recipesApi.getMyRecipes(user);
+      const myRecipes = await this.recipesApi.getMyRecipes(user);
+      return myRecipes;
     } catch (error) {
       return [];
     }

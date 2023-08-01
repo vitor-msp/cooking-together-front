@@ -19,13 +19,11 @@ const defaultUserContext: UserContextType = {
 export const UserContext = createContext<UserContextType>(defaultUserContext);
 
 export const UserProvider = ({ children }: PropsWithChildren) => {
-  const [loggedUser, setLoggedUser] = useState<CurrentUser | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const login = async (user: CurrentUser) => {
     const loggedUser = await loginUsecase.execute(user);
     if (loggedUser) {
-      setLoggedUser(loggedUser);
       setIsLoggedIn(true);
       return true;
     }
@@ -41,7 +39,6 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
   const getUser = async (): Promise<CurrentUser | null> => {
     const user = await getLoggedUserUsecase.execute();
     if (user) {
-      setLoggedUser(user);
       setIsLoggedIn(true);
     }
     return user;

@@ -1,4 +1,4 @@
-import { CurrentUser, User } from "../core/domain/User";
+import { CurrentUser } from "../core/domain/User";
 import { IUserDataRepo } from "../core/gateways/IUserDataRepo";
 
 export class UserDataRepo implements IUserDataRepo {

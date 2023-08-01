@@ -1,8 +1,8 @@
 import React from "react";
 import { GetServerSideProps, NextPage } from "next";
-import { Recipe } from "@/src/core/domain/Recipe";
 import Link from "next/link";
 import { getMyRecipesUsecase } from "@/src/factory";
+import { Recipe } from "@/src/core/domain/Recipe";
 import { Cookie } from "@/src/utils/Cookie";
 import Recipes from "@/src/components/Recipes";
 

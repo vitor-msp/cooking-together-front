@@ -1,7 +1,6 @@
 import React from "react";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { Recipe } from "@/src/core/domain/Recipe";
-import Link from "next/link";
 import Comments from "@/src/components/Comments";
 import { Cookie } from "@/src/utils/Cookie";
 import { Params } from "@/src/utils/Params";
