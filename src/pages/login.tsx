@@ -40,7 +40,7 @@ const LoginPage: NextPage = () => {
 
   return (
     <div className="default-form">
-      <h1 className="text-3xl mb-3">login</h1>
+      <h2 className="text-3xl mb-3">login</h2>
       <form action="" onSubmit={login}>
         <fieldset className="border border-orange-500 mb-1 p-3">
           <div>

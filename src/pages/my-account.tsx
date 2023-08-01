@@ -48,7 +48,7 @@ const MyAccount: NextPage<MyAccountProps> = ({ userData }) => {
 
   return (
     <div className="default-form">
-      <h1 className="text-3xl mb-3">my account</h1>
+      <h2 className="text-3xl mb-3">my account</h2>
       <form action="" onSubmit={saveUserData}>
         <fieldset className="border border-orange-500 mb-1 p-3">
           <div>

@@ -121,7 +121,7 @@ const MyRecipePage: NextPage<MyRecipePageProps> = ({ recipe, isAdd }) => {
         </button>
       )}
       <div className="default-form">
-        <h1 className="text-3xl mb-3">my recipe</h1>
+        <h2 className="text-3xl mb-3">my recipe</h2>
         <form action="" onSubmit={saveRecipe}>
           <div className="mb-1 w-full flex gap-2">
             {!isAdd && canEdit && (

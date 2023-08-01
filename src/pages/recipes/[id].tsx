@@ -36,7 +36,7 @@ const RecipePage: NextPage<RecipePageProps> = ({ recipe }) => {
   return (
     <div className="w-screen">
       <div className="mx-auto w-10/12 pt-4">
-        <h1 className="text-center text-orange-600 text-3xl">{title}</h1>
+        <h2 className="text-center text-orange-600 text-3xl">{title}</h2>
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="flex flex-col items-start">
             <div>
